@@ -89,9 +89,7 @@ public class ProfileView extends ImageView {
                     paint.setColor(color[j % 3]);
                     for (int i = 1; i < profiles.get(j).size; i++) {
                         Profile profile = profiles.get(j);
-                        canvas.drawLine((float) (WIDTH_KOEF * width * (profile.double_[i - 1][0] + shift_X)),
-                                (float) (height - (HEIGHT_KOEF * height * (profile.double_[i - 1][1] + shift_Y))),
-                                (float) (WIDTH_KOEF * width * (profile.double_[i][0] + shift_X)),
+                        canvas.drawPoint((float) (WIDTH_KOEF * width * (profile.double_[i][0] + shift_X)),
                                 (float) (height - (HEIGHT_KOEF * height * (profile.double_[i][1] + shift_Y))), paint);
                     }
                 }
