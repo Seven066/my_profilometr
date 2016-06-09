@@ -1,0 +1,66 @@
+<resources>
+    
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+
+
+    <string-array name="types_list_titles">
+        <item>Р8</item>
+        <item>Р11</item>
+        <item>Р18‎</item>
+        <item>Р24</item>
+        <item>Р50‎</item>
+        <item>Р65 левый</item>
+        <item>Р75</item>
+
+    </string-array>
+    <string-array name="types_list_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+
+    <string-array name="way_plane_list_titles">
+        <item>прямая</item>
+
+    </string-array>
+    <string-array name="way_plane_list_values">
+        <item>1</item>
+    </string-array>
+
+    <string-array name="type_detector_list_titles">
+        <item>LS5</item>
+        <item>РФ603</item>
+
+    </string-array>
+    <string-array name="type_detector_list_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string name="date_of_registration">Дата регистрации</string>
+    <string name="time_of_registration">Время регистрации</string>
+    <string name="operator_code">Код оператора</string>
+    <string name="way_name">Наименование ж. д.</string>
+    <string name="way_distance">Дистанция пути</string>
+    <string name="number_way">Номер пути</string>
+    <string name="number_way_default">1</string>
+    <string name="way_plane">План пути</string>
+    <string name="type">Тип рельса</string>
+    <string name="way_point">Путевая координата</string>
+    <string name="Cancel">Отмена</string>
+    <string name="Save">Записать</string>
+
+    <string name="send_file">Отправить</string>
+    <string name="be_absent">Отсутствует</string>
+
+    <string name="pref_header_data_connection">Подключение</string>
+    <string name="ip_address">IP адрес</string>
+    <string name="ip_address_default">192.168.0.1</string>
+
+</resources>

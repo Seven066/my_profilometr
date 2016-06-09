@@ -1,0 +1,96 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:title="@string/date_of_registration"
+        android:summary=""
+        android:key="date_of_registration_preference" />
+
+    <EditTextPreference
+        android:capitalize="words"
+        android:defaultValue="@string/be_absent"
+        android:inputType="date"
+        android:key="date_of_registration"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/date_of_registration" />
+
+    <EditTextPreference
+        android:capitalize="words"
+        android:defaultValue="@string/be_absent"
+        android:inputType="time"
+        android:key="time_of_registration"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/time_of_registration" />
+
+    <EditTextPreference
+        android:capitalize="words"
+        android:defaultValue="@string/be_absent"
+        android:inputType="text"
+        android:key="operator_code"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/operator_code" />
+
+    <EditTextPreference
+        android:capitalize="words"
+        android:defaultValue="@string/be_absent"
+        android:inputType="number"
+        android:key="number_way"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/number_way" />
+
+    <EditTextPreference
+        android:capitalize="words"
+        android:defaultValue="@string/be_absent"
+        android:inputType="text"
+        android:key="way_name"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/way_name" />
+
+    <ListPreference
+        android:defaultValue="-1"
+        android:entries="@array/way_plane_list_titles"
+        android:entryValues="@array/way_plane_list_values"
+        android:key="way_plane"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="@string/way_plane" />
+
+    <ListPreference
+        android:defaultValue="-1"
+        android:entries="@array/types_list_titles"
+        android:entryValues="@array/types_list_values"
+        android:key="type"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:title="@string/type" />
+
+    <EditTextPreference
+        android:capitalize="words"
+        android:defaultValue="@string/be_absent"
+        android:inputType="number"
+        android:key="way_distance"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/way_distance" />
+
+    <EditTextPreference
+        android:capitalize="words"
+        android:defaultValue="@string/be_absent"
+        android:inputType="number"
+        android:key="way_point"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/way_point" />
+
+</PreferenceScreen>

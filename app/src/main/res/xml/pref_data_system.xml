@@ -1,0 +1,29 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/board_info">
+        <Preference
+            android:key="numberScheme"
+            android:title="@string/number_scheme" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/laser_info">
+        <Preference
+            android:key="deviceType"
+            android:title="@string/device_type" />
+
+        <Preference
+            android:key="firmWare"
+            android:title="@string/firm_Ware" />
+
+        <Preference
+            android:key="serialNumber"
+            android:title="@string/serial_number" />
+
+        <Preference
+            android:key="baseD"
+            android:title="@string/base_d" />
+
+        <Preference
+            android:key="mesRange"
+            android:title="@string/mes_range" />
+    </PreferenceCategory>
+</PreferenceScreen>
