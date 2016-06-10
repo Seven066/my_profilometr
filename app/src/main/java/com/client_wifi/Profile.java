@@ -18,6 +18,7 @@ public class Profile {
     public boolean railwaySide;
     public boolean drawable = false;
     public double [] coordinates;
+    public boolean isDrawed = false;
 
     public void setCoordinates(double lat, double lon) {
         this.coordinates = new double[2];

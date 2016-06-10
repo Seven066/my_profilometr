@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     profile.drawable = true;
+                    profile.isDrawed = false;
                     profileview.addProfile(profile);
 
                     double[] v = profile.params;
@@ -269,6 +270,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (profileview.profiles.get(position).drawable) {
                     profileview.profiles.get(position).drawable = false;
+                    profileview.profiles.get(position).isDrawed = false;
                 } else {
                     profileview.profiles.get(position).drawable = true;
                 }
@@ -293,7 +295,7 @@ public class MainActivity extends AppCompatActivity {
         Profile profile = new Profile(Mathematics.GOST_Profile1, Mathematics.GOST_Profile1.length, "ГОСТ", Calendar.getInstance().getTime(), v);
         profile.setCoordinates(0,0);
         profile.drawable = true;
-
+        profile.isDrawed = false;
         profileview.addProfile(profile);
         lvMain.setItemChecked((profileview.profiles_titles.size() - 1), true);
     }
@@ -454,7 +456,7 @@ public class MainActivity extends AppCompatActivity {
         else profile.setCoordinates(0,0);
 
         profile.drawable = true;
-
+        profile.isDrawed = false;
         double iznos = 0;
         for (int i = 155; i >= 0; i--) {
             iznos += Math.random() * 0.05;
@@ -709,6 +711,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.menu_deselectAll:
                 for (int i = 0; i < profileview.profiles.size(); i++) {
                     profileview.profiles.get(i).drawable = false;
+                    profileview.profiles.get(i).isDrawed = false;
                     adapter.notifyDataSetChanged();
                     lvMain.setItemChecked((i), false);
                     profileview.invalidate();
@@ -719,6 +722,7 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i < profileview.profiles.size(); i++) {
                     if (lvMain.isItemChecked(i) == true) {
                         profileview.profiles.get(i).drawable = false;
+                        profileview.profiles.get(i).isDrawed = false;
                         lvMain.setItemChecked((i), false);
                     } else {
                         profileview.profiles.get(i).drawable = true;

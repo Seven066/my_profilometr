@@ -5,8 +5,9 @@ import java.util.Vector;
 
 public class Mathematics {
 
-    double radius = 55;
+    double radius = 56;
     double radPerTick = 0.012345;
+
     double[][] profile_xy;
     int number_params = 7;
     double[] params = new double[number_params];
@@ -114,6 +115,9 @@ public class Mathematics {
         profileSize = inmas.length;
         double L1 = 13;
         double shift_x = 0, shift_y = 0, shift_fi = 0;
+        shift_fi = 0.4887;
+        shift_x = 40;
+        shift_y = -8;
         int gost_anc_idx = 7;
         int profile_anc_idx = 199;
 
@@ -124,29 +128,6 @@ public class Mathematics {
                 inmas[i] = (inmas[i - 1] + inmas[i + 1]) / 2;
             }
         }
-        //определение shift_x и shift_y shift_fi
-        shift_fi = 0.5236;
-        profile_xy[profile_anc_idx][0] = (radius - inmas[profile_anc_idx]) * Math.cos(profile_anc_idx * radPerTick + shift_fi) + shift_x;  //может убрать shift_x,y,fi
-        profile_xy[profile_anc_idx][1] = (radius - inmas[profile_anc_idx]) * Math.sin(profile_anc_idx * radPerTick + shift_fi) + shift_y;  //может убрать shift_x,y,fi
-        shift_x = GOST_Profile1[gost_anc_idx][0] - profile_xy[profile_anc_idx][0];
-        shift_y = GOST_Profile1[gost_anc_idx][1] - profile_xy[profile_anc_idx][1];
-
-        //определение угла поворота shift_fi
-        /*
-        int delta_len 30; //как это определить и записать иначе
-        delta = new double[delta_len][2];  // тридцать бы поменять на число точек в левой части
-        for (int i = 1; i < delta_len; i++) {
-            profile_xy[profile_anc_idx-i][0] = (radius - inmas[i]) * Math.cos(i * radPerTick + shift_fi) + shift_x;  //может убрать shift_x,y,fi
-            profile_xy[profile_anc_idx-i][1] = (radius - inmas[i]) * Math.sin(i * radPerTick + shift_fi) + shift_y;
-
-        }
-        double delta = profile_xy[profile_anc_idx][0]-GOST_Profile1[gost_anc_idx][0];  //разница координат по x
-        double h = 5;//шаг
-        while (delta>0.05)
-        {
-            shift_x += h;
-        }
-        */
 
         //Расчет всего массива
         for (int i = 0; i < inmas.length; i++) {
@@ -241,7 +222,7 @@ public class Mathematics {
             P2.x = profile_xy[H45_idx + 1][0];
             P2.y = profile_xy[H45_idx + 1][1];
             H45_idx++;
-        } while (!interception.isHasIntercept(P1,P2,Line45_1,Line45_2));
+        } while ((!interception.isHasIntercept(P1,P2,Line45_1,Line45_2)&(H45_idx<profileSize-2)));
         ProfileInterceptPoint = interception.interceptPoint(P1,P2,Line45_1,Line45_2);
 
         //Поиск точки пересечения с профилем по ГОСТ
