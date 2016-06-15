@@ -318,7 +318,7 @@ public class Mathematics {
         double L1 = 13;
         double shift_x = 0, shift_y = 0, shift_fi = 0;
         shift_fi = 0.1186;
-        shift_x = 40;
+        shift_x = 38.5;//подбор
         shift_y = -4;
         int gost_anc_idx = 7;
         int profile_anc_idx = 199;
