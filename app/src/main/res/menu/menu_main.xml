@@ -1,0 +1,50 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/open_file"
+        android:icon="@android:drawable/ic_menu_add"
+        android:orderInCategory="100"
+        android:title="@string/open_file"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/save_file"
+        android:icon="@android:drawable/ic_menu_save"
+        android:orderInCategory="100"
+        android:title="@string/save_file"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/send_file"
+        android:icon="@android:drawable/ic_menu_send"
+        android:orderInCategory="100"
+        android:title="@string/send_file"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/menu_clearAll"
+        android:orderInCategory="100"
+        android:title="@string/menu_clearAll"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_selectAll"
+        android:orderInCategory="100"
+        android:title="@string/menu_selectAll"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_deselectAll"
+        android:orderInCategory="100"
+        android:title="@string/menu_deselectAll"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_inverseSelection"
+        android:orderInCategory="100"
+        android:title="@string/menu_inverseSelection"
+        app:showAsAction="never"/>
+</menu>
