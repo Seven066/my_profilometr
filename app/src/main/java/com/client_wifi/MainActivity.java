@@ -298,6 +298,14 @@ public class MainActivity extends AppCompatActivity {
         profile.isDrawed = false;
         profileview.addProfile(profile);
         lvMain.setItemChecked((profileview.profiles_titles.size() - 1), true);
+        /*
+        Profile profile1 = new Profile(Mathematics.GOST_Profile2, Mathematics.GOST_Profile2.length, "ГОСТ2", Calendar.getInstance().getTime(), v);
+        profile1.setCoordinates(0,0);
+        profile1.drawable = true;
+        profile1.isDrawed = false;
+        profileview.addProfile(profile1);
+        lvMain.setItemChecked((profileview.profiles_titles.size() - 1), true);
+        */
     }
 
     @Override
