@@ -647,28 +647,29 @@ public class MainActivity extends AppCompatActivity {
                         .setFolderIcon(foldericon)
                         .setFileIcon(fileicon)
                         .setAccessDeniedMessage("Access Denied")
-
-                        .setFilter(".*\\.xml")
+                        .setFilter(".*\\.x.*")
                         .setSaveDialogListener(
                                 new SaveFileDialog.SaveDialogListener() {
                                     @Override
                                     public void OnSelectedFile(String fileName) {
                                         Toast.makeText(getApplicationContext(), "Save: " +
                                                 fileName, Toast.LENGTH_LONG).show();
-
-                                        File file = new File(fileName);
+                                        String saveFileName = fileName + ".xml";
+                                        File file = new File(saveFileName);
 
                                         try {
+                                            profileview.WriteXLS(fileName);
                                             file.createNewFile();
 
-                                            FileWriter f = new FileWriter(fileName);
+                                            FileWriter f = new FileWriter(saveFileName);
                                             XMLManager manager = new XMLManager();
 
                                             BufferedWriter bw = new BufferedWriter(f);
-                                            manager.SaveScheme(bw, profileview, fileName);
+                                            manager.SaveScheme(bw, profileview, saveFileName);
 
                                             DialogFragment clearDialog = new ClearDialog(profileview, adapter);
                                             clearDialog.show(getFragmentManager(), "clearDialog");
+                                            //todo приляпать xls
 
                                             f.flush();
                                             f.close();
@@ -792,6 +793,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testXls(final View view) throws IOException, WriteException {
-        profileview.WriteXLS();
+        profileview.WriteXLS("ss");
     }
 }

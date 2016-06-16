@@ -102,7 +102,7 @@ public class SaveFileDialog extends AlertDialog.Builder {
         linearLayout.addView(createBackItem(context));
         editText = new EditText(context);
         Calendar rightNow = Calendar.getInstance();
-        editText.setText(rightNow.getTime().toString() + ".xml");
+        editText.setText("profile_"+rightNow.getTime().toString().replaceAll(" ", "").replaceAll(":",""));
         linearLayout.addView(editText);
         listView = createListView(context);
         linearLayout.addView(listView);

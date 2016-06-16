@@ -132,16 +132,16 @@ public class ProfileView extends ImageView {
 
     }
 
-    public void WriteXLS() throws IOException, WriteException {
+    public void WriteXLS(String fileName) throws IOException, WriteException {
         //TODO добавить запись координат
         WriteExcel we = new WriteExcel(profiles);
-        String fileName;
+        //String fileName;
         Calendar calendar;
 
         calendar = Calendar.getInstance();
-        String basePath = Environment.getExternalStorageDirectory().getAbsolutePath();
-        fileName = basePath + "/test/profile" + calendar.getTime().toString() + ".xls";
-        we.setOutputFile(fileName);
+        //String basePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        String savedFileName = fileName + ".xls";
+        we.setOutputFile(savedFileName);
         we.setDate(calendar.getTime().toString());
         we.write();
     }
