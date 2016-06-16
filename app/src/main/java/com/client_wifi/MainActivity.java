@@ -5,6 +5,8 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -140,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
                     if (locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) != null) {
                         profile.setCoordinates(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude(),
                                 locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude());
-                    }
+                    } else profile.setCoordinates(0, 0);
 
                     profile.drawable = true;
                     profile.isDrawed = false;
@@ -158,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                                     "S2\t=\t" + df.format(v[6]) + "\tmm" + "\n");
                     adapter.notifyDataSetChanged();
                     lvMain.setItemChecked((profileview.profiles_titles.size() - 1), true);
-                    lvMain.smoothScrollToPosition(profileview.profiles_titles.size()-1);
+                    lvMain.smoothScrollToPosition(profileview.profiles_titles.size() - 1);
                     profileview.invalidate();
                     break;
 
@@ -200,7 +202,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
         ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
@@ -293,7 +300,7 @@ public class MainActivity extends AppCompatActivity {
         });
         double[] v = new double[5];
         Profile profile = new Profile(Mathematics.GOST_Profile1, Mathematics.GOST_Profile1.length, "ГОСТ", Calendar.getInstance().getTime(), v);
-        profile.setCoordinates(0,0);
+        profile.setCoordinates(0, 0);
         profile.drawable = true;
         profile.isDrawed = false;
         profileview.addProfile(profile);
@@ -460,8 +467,7 @@ public class MainActivity extends AppCompatActivity {
         if (locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) != null) {
             profile.setCoordinates(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude(),
                     locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude());
-        }
-        else profile.setCoordinates(0,0);
+        } else profile.setCoordinates(0, 0);
 
         profile.drawable = true;
         profile.isDrawed = false;

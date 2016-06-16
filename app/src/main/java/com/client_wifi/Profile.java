@@ -7,6 +7,18 @@ import java.util.Date;
  * Created by Fourp on 14.07.2015.
  * E-mail: 065@t-sk.ru
  */
+
+//Наименование измеренного профиля
+//Дата регистрации
+//Код оператора
+//Наименование ЖД
+//Дистанция пути
+//Номер пути
+//План пути
+//Сторона рельса
+//Путевая координата
+//Комментарии
+
 public class Profile {
     public double[][] double_;
     public String title;
@@ -19,7 +31,21 @@ public class Profile {
     public boolean drawable = false;
     public double [] coordinates;
     public boolean isDrawed = false;
-
+    //Наименование измеренного профиля
+    //Дата регистрации
+    //Код оператора
+    public String operatorCode;
+    //Наименование ЖД
+    public String ZDName;
+    //Дистанция пути
+    public String railwayDistance;
+    //План пути
+    public String railwayPlan;
+    //Сторона рельса
+    //Путевая координата
+    public String railwayCoordinate;
+    //Комментарии
+    public String comment;
     public void setCoordinates(double lat, double lon) {
         this.coordinates = new double[2];
         coordinates[0] = lat;
@@ -44,6 +70,7 @@ public class Profile {
         }
         this.railwayNumber = railwayNumber;
         this.railwaySide = railwaySide;
+
     }
 
 
@@ -60,7 +87,16 @@ public class Profile {
             }
         }
         //TODO change it to = profile[i-1] params;
-        railwayNumber = "";
+        railwayNumber = "1";
         railwaySide = false;
+        operatorCode = " ";
+        ZDName = " ";
+        //Дистанция пути
+        railwayDistance = " ";
+        //План пути
+        railwayPlan = " ";
+        //Путевая координата
+        railwayCoordinate = " ";
+        comment = " ";
     }
 }

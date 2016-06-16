@@ -3,7 +3,7 @@
 
     <string name="action_settings">Настройки</string>
 
-    <string name="name">Имя</string>
+    <string name="name">Наименование</string>
     <string name="comm">Комментарий</string>
     <string name="tab1">Измерение</string>
     <string name="tab2">Профиль</string>
@@ -111,6 +111,10 @@
     <string name="menu_deselectAll">Снять выделение</string>
     <string name="menu_inverseSelection">Инвертировать выделение</string>
     <string name="location">Местоположение</string>
+    <string name="RWName">Наименование Ж/Д</string>
+    <string name="railwayPlan">План пути</string>
+    <string name="railwayDistance">Дистанция пути</string>
+    <string name="railwayCoordinate">Путевая координата</string>
 
 
     //from_strings_activity

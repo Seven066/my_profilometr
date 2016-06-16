@@ -3,170 +3,295 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" >
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:gravity="center"
-                android:textSize="15sp"
-                android:text="@string/name"
-                android:layout_weight="1" />
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/profilename"
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="@string/name"
+                    android:layout_weight="1" />
+
+                <EditText
+                    android:id="@+id/profilename"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="text"
+                    android:layout_gravity="center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="@string/date_of_registration"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text=""
+                    android:id="@+id/profileDate"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="@string/operator_code"
+                    android:layout_weight="1" />
+
+                <EditText
+                    android:id="@+id/operatorCode"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_weight="1"
+                    android:textSize="15sp"
+                    android:inputType="text" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="@string/RWName"
+                    android:layout_weight="1" />
+
+                <EditText
+                    android:id="@+id/ZDName"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_weight="1"
+                    android:textSize="15sp"
+                    android:inputType="text" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="@string/railwayDistance"
+                    android:layout_weight="1" />
+
+                <EditText
+                    android:id="@+id/railwayDistance"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_weight="1"
+                    android:textSize="15sp"
+                    android:inputType="text" />
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="@string/railwayNumber"
+                    android:layout_weight="1" />
+
+                <EditText
+                    android:id="@+id/railwayNumber"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:inputType="number" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="@string/railwayPlan"
+                    android:layout_weight="1" />
+
+                <EditText
+                    android:id="@+id/railwayPlan"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="@string/railwaySide"
+                    android:layout_weight="1" />
+
+                <Switch
+                    android:id="@+id/railwaySide"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:textOff="Левый"
+                    android:textOn="Правый" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="@string/railwayCoordinate"
+                    android:layout_weight="1" />
+
+                <EditText
+                    android:id="@+id/railwayCoordinate"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="@string/location"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/currentLocation"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:textSize="15sp"
+                    android:text="@string/comm"
+                    android:layout_weight="1" />
+
+                <EditText
+                    android:id="@+id/comment"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:inputType="text" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:inputType="text"
-                android:layout_gravity="center" />
+                android:layout_marginTop="20dp">
+
+                <Button
+                    android:id="@+id/sumdialogOk"
+                    style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Save"/>
+
+                <Button
+                    android:id="@+id/sumdialogDelete"
+                    style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/delete"/>
+
+                <Button
+                    android:id="@+id/sumdialogCancel"
+                    style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Cancel"/>
+            </LinearLayout>
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:gravity="center"
-                android:textSize="15sp"
-                android:text="@string/date_of_registration"
-                android:layout_weight="1" />
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:gravity="center"
-                android:textSize="15sp"
-                android:text=""
-                android:id="@+id/profileDate"
-                android:layout_weight="1" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:gravity="center"
-                android:textSize="15sp"
-                android:text="@string/railwayNumber"
-                android:layout_weight="1" />
-
-            <EditText
-                android:id="@+id/railwayNumber"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:inputType="number" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:gravity="center"
-                android:textSize="15sp"
-                android:text="@string/railwaySide"
-                android:layout_weight="1" />
-
-            <Switch
-                android:id="@+id/railwaySide"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:textOff="Левый"
-                android:textOn="Правый" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:gravity="center"
-                android:textSize="15sp"
-                android:text="@string/location"
-                android:layout_weight="1" />
-
-            <EditText
-                android:id="@+id/currentLocation"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:inputType="number" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:gravity="center"
-                android:textSize="15sp"
-                android:text="@string/comm"
-                android:layout_weight="1" />
-
-            <EditText
-                android:id="@+id/profilcom"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:inputType="text" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
-
-            <Button
-                android:id="@+id/sumdialogOk"
-                style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/Save"/>
-
-            <Button
-                android:id="@+id/sumdialogDelete"
-                style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/delete"/>
-
-            <Button
-                android:id="@+id/sumdialogCancel"
-                style="@android:style/Widget.Holo.Light.Button.Borderless.Small"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/Cancel"/>
-        </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

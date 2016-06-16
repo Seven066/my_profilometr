@@ -15,16 +15,13 @@ import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
-import java.text.DateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.ArrayList;
 
 
@@ -41,8 +38,19 @@ public class ProfileDialog extends DialogFragment implements View.OnClickListene
     SparseBooleanArray sbArray;
     private TextView dateTextName;
     private EditText railwayNumber;
-    private EditText currentLocationText;
+    private TextView currentLocationText;
+    private EditText operatorCode;
+    //Наименование жд
+    private EditText ZDName;
+    //Дистанция пути
+    private EditText railwayDistance;
+    //План пути
+    private EditText railwayPlan;
+    //Сторона рельса
     private Switch railwaySide;
+    //Путевая координата
+    private EditText railwayCoordinate;
+    private EditText comment;
 
     public ProfileDialog(ProfileView profileview, long id, ArrayAdapter adapter, SparseBooleanArray sbArray) {
         this.sbArray = sbArray;
@@ -63,20 +71,49 @@ public class ProfileDialog extends DialogFragment implements View.OnClickListene
         view.findViewById(R.id.sumdialogOk).setOnClickListener(this);
         view.findViewById(R.id.sumdialogDelete).setOnClickListener(this);
 
+        //Наименование измеренного профиля
         editTextName = (EditText) view.findViewById(R.id.profilename);
         editTextName.setText(String.valueOf(profile.title));
-        currentLocationText = (EditText) view.findViewById(R.id.currentLocation);
-        currentLocationText.setText(profile.location);
+        editTextName.requestFocus();
+        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        //Дата регистрации
         dateTextName = (TextView) view.findViewById(R.id.profileDate);
         calendar = Calendar.getInstance();
         calendar.setTimeInMillis(profile.date.getTime());
         dateTextName.setText(calendar.getTime().toString());
+
+        //Код оператора
+        operatorCode = (EditText) view.findViewById(R.id.operatorCode);
+        operatorCode.setText(String.valueOf(profile.operatorCode));
+        //Наименование ЖД
+        ZDName = (EditText) view.findViewById(R.id.ZDName);
+        ZDName.setText(String.valueOf(profile.ZDName));
+        //Дистанция пути
+        railwayDistance = (EditText) view.findViewById(R.id.railwayDistance);
+        railwayDistance.setText(String.valueOf(profile.railwayDistance));
+        //Номер пути
+        railwayNumber = (EditText) view.findViewById(R.id.railwayNumber);
+        railwayNumber.setText(profile.railwayNumber);
+        //План пути
+        railwayPlan = (EditText) view.findViewById(R.id.railwayPlan);
+        railwayPlan.setText(String.valueOf(profile.railwayPlan));
+        //Сторона рельса
+        railwaySide = (Switch)  view.findViewById(R.id.railwaySide);
+        railwaySide.setChecked(profile.railwaySide);
+        //Путевая координата]
+        railwayCoordinate = (EditText) view.findViewById(R.id.railwayCoordinate);
+        railwayCoordinate.setText(String.valueOf(profile.railwayCoordinate));
+        //GPS
+        currentLocationText = (TextView) view.findViewById(R.id.currentLocation);
+        currentLocationText.setText(profile.location);
+        //Комментарии
+        comment = (EditText) view.findViewById(R.id.comment);
+        comment.setText(profile.comment);
         //datePicker.updateDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
         //timePicker.setIs24HourView(true);
-        railwayNumber = (EditText) view.findViewById(R.id.railwayNumber);
-        railwaySide = (Switch)  view.findViewById(R.id.railwaySide);
-        railwayNumber.setText(profile.railwayNumber);
-        railwaySide.setChecked(profile.railwaySide);
+
+
         return view;
     }
 
@@ -84,12 +121,30 @@ public class ProfileDialog extends DialogFragment implements View.OnClickListene
 
         switch (view.getId()) {
             case R.id.sumdialogOk:
+                //Наименование измеренного профиля
                 String s = editTextName.getText().toString();
                 profile.title = s;
                 strings.set(id, s);
+                //Дата регистрации
+                    //неизменна
+                //Код оператора
+                profile.operatorCode = String.valueOf(operatorCode.getText());
+                //Наименование ЖД
+                profile.ZDName = String.valueOf(ZDName.getText());
+                //Дистанция пути
+                profile.railwayDistance = String.valueOf(railwayDistance.getText());
+                //Номер пути
                 profile.railwayNumber = String.valueOf(railwayNumber.getText());
+                //План пути
+                profile.railwayPlan = String.valueOf(railwayPlan.getText());
+                //Сторона рельса
                 profile.railwaySide = railwaySide.isChecked();
+                //Путевая координата
+                profile.railwayCoordinate = String.valueOf(railwayCoordinate.getText());
+                //Комментарии
+                profile.comment = String.valueOf(comment.getText());
 
+                //Уведомляем адаптер о изменении
                 adapter.notifyDataSetChanged();
                 dismiss();
                 break;
