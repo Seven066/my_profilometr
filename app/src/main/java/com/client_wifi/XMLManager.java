@@ -35,8 +35,10 @@ import javax.xml.transform.stream.StreamResult;
  * E-mail: 065@t-sk.ru
  */
 public class XMLManager {
+    //Сохранение результатов измерения в структуированный xml файл
     void SaveScheme(BufferedWriter bw, ProfileView prof, String filename) {
         try {
+            //Создание xml файла
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             Document document = documentBuilder.newDocument();
@@ -107,6 +109,15 @@ public class XMLManager {
         //todo BAD size in double[205][2]. Заменить 205 на переменную.
         double[][] double_ = new double[205][2];
         String title_ = "";
+        String operatorCode= "";
+        String ZDName= "";
+        String railwayDistance= "";
+        String railwayPlan= "";
+        String railwayCoordinate= "";
+        String railwayNumber = "";
+        String railwaySide = "";
+        String comment = "";
+        String location = "";
         int size_ = 0;
         double[] params_ = new double[7];
         Profile profile;
@@ -117,6 +128,15 @@ public class XMLManager {
                 Log.d("PARSER", name);
                 if (name.startsWith("Profile_")) {
                     title_ = parser.getAttributeValue("", "name");
+                    operatorCode = parser.getAttributeValue("","operator_code");
+                    ZDName = parser.getAttributeValue("","ZDName");
+                    railwayDistance = parser.getAttributeValue("","Distance");
+                    railwayNumber = parser.getAttributeValue("","rw_number");
+                    railwayPlan = parser.getAttributeValue("","rw_plan");
+                    railwaySide = parser.getAttributeValue("","rw_side");
+                    railwayCoordinate = parser.getAttributeValue("","rw_coord");
+                    location = parser.getAttributeValue("","gps");
+                    comment = parser.getAttributeValue("","comment");
                 }
                 if (name.startsWith("Points")) {
                    // size_ = Integer.valueOf(parser.getAttributeValue("", "size"));
@@ -148,6 +168,10 @@ public class XMLManager {
                 if (name.toString().startsWith("Profile_")) {
                     //TODO download DATE from file
                     profile = new Profile(double_, size_, title_, Calendar.getInstance().getTime(), params_);
+
+                    profile.setInfo(operatorCode,ZDName,railwayDistance,railwayNumber,
+                            railwayPlan,(railwaySide.equals("right")),railwayCoordinate,location,comment);
+
                     profile.drawable = true;
                     lv.setItemChecked(prof_idx,true);
                     prof_idx++;

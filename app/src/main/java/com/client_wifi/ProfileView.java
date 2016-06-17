@@ -99,7 +99,7 @@ public class ProfileView extends ImageView {
             }
         }
     }
-
+    //Сохранение результатов измерения в структуированный xml файл. часть 1 создание структуры.
     public void WriteXML(Document document, Element element) {
         //TODO добавить запись координат
         int profile_i=0;
@@ -108,7 +108,18 @@ public class ProfileView extends ImageView {
             //String title = "Profile" + String.V.title;
             Element prof = document.createElement("Profile_" + profile_i++);
             element.appendChild(prof);
+            //Запись информации из ProfileDialog
             prof.setAttribute("name",profile.title);
+            prof.setAttribute("operator_code",profile.operatorCode);
+            prof.setAttribute("ZDName",profile.ZDName);
+            prof.setAttribute("Distance",profile.railwayDistance);
+            prof.setAttribute("rw_number",profile.railwayNumber);
+            prof.setAttribute("rw_plan",profile.railwayPlan);
+            prof.setAttribute("rw_side",(profile.railwaySide ? "right":"left"));
+            prof.setAttribute("rw_coord",profile.railwayCoordinate);
+            prof.setAttribute("gps",profile.location);
+            prof.setAttribute("comment",profile.comment);
+
             Element points = document.createElement("Points");
             prof.appendChild(points);
             Element params = document.createElement("Parameters");

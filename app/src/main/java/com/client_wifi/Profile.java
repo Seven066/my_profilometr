@@ -46,6 +46,7 @@ public class Profile {
     public String railwayCoordinate;
     //Комментарии
     public String comment;
+
     public void setCoordinates(double lat, double lon) {
         this.coordinates = new double[2];
         coordinates[0] = lat;
@@ -70,7 +71,16 @@ public class Profile {
         }
         this.railwayNumber = railwayNumber;
         this.railwaySide = railwaySide;
-
+        operatorCode = "1";
+        ZDName = "1";
+        //Дистанция пути
+        railwayDistance = "1";
+        //План пути
+        railwayPlan = "1";
+        //Путевая координата
+        railwayCoordinate = "1";
+        comment = "1";
+        location = "1";
     }
 
 
@@ -89,14 +99,27 @@ public class Profile {
         //TODO change it to = profile[i-1] params;
         railwayNumber = "1";
         railwaySide = false;
-        operatorCode = " ";
-        ZDName = " ";
+        operatorCode = "1";
+        ZDName = "1";
         //Дистанция пути
-        railwayDistance = " ";
+        railwayDistance = "1";
         //План пути
-        railwayPlan = " ";
+        railwayPlan = "1";
         //Путевая координата
-        railwayCoordinate = " ";
-        comment = " ";
+        railwayCoordinate = "1";
+        comment = "1";
+        location = "1";
+    }
+
+    public void setInfo(String operatorCode, String ZDName, String railwayDistance, String railwayNumber, String railwayPlan, boolean railwaySide, String railwayCoordinate, String location, String comment){
+        this.operatorCode = operatorCode;
+        this.ZDName = ZDName;
+        this.railwayDistance = railwayDistance;
+        this.railwayNumber = railwayNumber;
+        this.railwayPlan = railwayPlan;
+        this.railwaySide = railwaySide;
+        this.railwayCoordinate = railwayCoordinate;
+        this.location = location;
+        this.comment = comment;
     }
 }

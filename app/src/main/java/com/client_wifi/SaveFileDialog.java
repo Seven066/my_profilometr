@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -96,6 +97,8 @@ public class SaveFileDialog extends AlertDialog.Builder {
 
     public SaveFileDialog(Context context) {
         super(context);
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.HIDE_NOT_ALWAYS, 0);
         title = createTitle(context);
         changeTitle();
         linearLayout = createMainLayout(context);
@@ -121,6 +124,7 @@ public class SaveFileDialog extends AlertDialog.Builder {
 
     @Override
     public AlertDialog show() {
+
         files.addAll(getFiles(currentPath));
         listView.setAdapter(new FileAdapter(getContext(), files));
         return super.show();

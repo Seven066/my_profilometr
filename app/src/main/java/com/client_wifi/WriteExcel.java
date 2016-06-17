@@ -133,7 +133,24 @@ public class WriteExcel {
             addNumber(sheet, 5*profile_i+3, firstCellLine+8, profile.coordinates[0]);
             addLabel(sheet, 5*profile_i+2, firstCellLine+9, "Lon");
             addNumber(sheet, 5*profile_i+3, firstCellLine+9, profile.coordinates[1]);
-
+            addLabel(sheet, 5*profile_i+2, firstCellLine+10, "operator_code");
+            addLabel(sheet, 5*profile_i+3, firstCellLine+10, profile.operatorCode);
+            addLabel(sheet, 5*profile_i+2, firstCellLine+11, "ZDName");
+            addLabel(sheet, 5*profile_i+3, firstCellLine+11, profile.ZDName);
+            addLabel(sheet, 5*profile_i+2, firstCellLine+12, "Distance");
+            addLabel(sheet, 5*profile_i+3, firstCellLine+12, profile.railwayDistance);
+            addLabel(sheet, 5*profile_i+2, firstCellLine+13, "rw_number");
+            addLabel(sheet, 5*profile_i+3, firstCellLine+13, profile.railwayNumber);
+            addLabel(sheet, 5*profile_i+2, firstCellLine+14, "rw_plan");
+            addLabel(sheet, 5*profile_i+3, firstCellLine+14, profile.railwayPlan);
+            addLabel(sheet, 5*profile_i+2, firstCellLine+15, "rw_side");
+            addLabel(sheet, 5*profile_i+3, firstCellLine+15, profile.railwaySide?"правый":"левый");
+            addLabel(sheet, 5*profile_i+2, firstCellLine+16, "rw_coord");
+            addLabel(sheet, 5*profile_i+3, firstCellLine+16, profile.railwayCoordinate);
+            addLabel(sheet, 5*profile_i+2, firstCellLine+17, "gps");
+            addLabel(sheet, 5*profile_i+3, firstCellLine+17, profile.location);
+            addLabel(sheet, 5*profile_i+2, firstCellLine+18, "comment");
+            addLabel(sheet, 5*profile_i+3, firstCellLine+18, profile.comment);
             //XY
             addLabel(sheet, 5*profile_i, firstCellLine+1, "X");
             addLabel(sheet, 5*profile_i+1, firstCellLine+1, "Y");
