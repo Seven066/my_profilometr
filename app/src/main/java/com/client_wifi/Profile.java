@@ -51,6 +51,8 @@ public class Profile {
         this.coordinates = new double[2];
         coordinates[0] = lat;
         coordinates[1] = lon;
+        location = ("lat:" + lat + " lon:" + lon);
+
     }
 
 

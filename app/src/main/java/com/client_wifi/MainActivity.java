@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -89,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
     //private static final String SERVER_IP = "192.168.173.1";
     private Handler updateConversationHandler;
     private LocationManager locationManager;
+    public static final String GOST_PREFERENCES = "gostSettings";
+    public SharedPreferences gostSettings;
     private LocationListener locationListener = new LocationListener() {
 
         @Override
@@ -144,7 +147,9 @@ public class MainActivity extends AppCompatActivity {
                         profile.setCoordinates(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude(),
                                 locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude());
                     } else profile.setCoordinates(0, 0);
-
+                    profile.setInfo(profileview.profiles.get(profileview.profiles.size() - 1).operatorCode, profileview.profiles.get(profileview.profiles.size() - 1).ZDName,profileview.profiles.get(profileview.profiles.size() - 1).railwayDistance,
+                            profileview.profiles.get(profileview.profiles.size() - 1).railwayNumber,profileview.profiles.get(profileview.profiles.size() - 1).railwayPlan,profileview.profiles.get(profileview.profiles.size() - 1).railwaySide,
+                            profileview.profiles.get(profileview.profiles.size() - 1).railwayCoordinate, profile.location,profileview.profiles.get(profileview.profiles.size() - 1).comment);
                     profile.drawable = true;
                     profile.isDrawed = false;
                     profileview.addProfile(profile);
@@ -229,7 +234,8 @@ public class MainActivity extends AppCompatActivity {
         connection_status.setTextColor(Color.RED);
         textmeasure = (TextView) findViewById(R.id.textmeasure);
 
-
+        //Добавление настроек
+        gostSettings = getSharedPreferences(GOST_PREFERENCES, Context.MODE_PRIVATE);
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -293,7 +299,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                                            int position, long id) {
-                ProfileDialog profileDialog = new ProfileDialog(profileview, id, adapter, sbArray);
+                ProfileDialog profileDialog = new ProfileDialog(profileview, id, adapter, sbArray, gostSettings);
                 profileDialog.show(MainActivity.fragmentManager, "profileDialog");
                 Log.v("long clicked", "pos: " + position);
                 return true;
@@ -304,16 +310,11 @@ public class MainActivity extends AppCompatActivity {
         profile.setCoordinates(0, 0);
         profile.drawable = true;
         profile.isDrawed = false;
+        profile.setInfo(gostSettings.getString("operatorCode","1"),gostSettings.getString("ZDName","s"),gostSettings.getString("railwayDistance","d"), gostSettings.getString("railwayNumber","d"),
+                gostSettings.getString("railwayPlan","d"),gostSettings.getBoolean("railwaySide",true), gostSettings.getString("railwayCoordinate","d"), gostSettings.getString("location","0 lat, 0 lon"),
+                gostSettings.getString("comment","d"));
         profileview.addProfile(profile);
         lvMain.setItemChecked((profileview.profiles_titles.size() - 1), true);
-        /*
-        Profile profile1 = new Profile(Mathematics.GOST_Profile2, Mathematics.GOST_Profile2.length, "ГОСТ2", Calendar.getInstance().getTime(), v);
-        profile1.setCoordinates(0,0);
-        profile1.drawable = true;
-        profile1.isDrawed = false;
-        profileview.addProfile(profile1);
-        lvMain.setItemChecked((profileview.profiles_titles.size() - 1), true);
-        */
     }
 
     @Override

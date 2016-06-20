@@ -3,10 +3,12 @@ package com.client_wifi;
  * Created by Axel on 22.04.2016.
  */
 
+import android.content.res.AssetManager;
 import android.os.Environment;
 
 import java.io.IOException;
 import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -34,9 +36,10 @@ public class WriteExcel {
     private String inputFile;
     private ArrayList<Profile> profiles;
     private String Date;
-
-    public WriteExcel(ArrayList<Profile> profiles) {
+    private AssetManager assetManager;
+    public WriteExcel(ArrayList<Profile> profiles, AssetManager assetManager) {
         this.profiles = profiles;
+        this.assetManager = assetManager;
     }
     public WriteExcel(){}
 
@@ -60,7 +63,9 @@ public class WriteExcel {
 
         Workbook sampleWb = null;
         try {
-            sampleWb = Workbook.getWorkbook(new File(basePath + "/test/sample.xls"));
+            //sampleWb = Workbook.getWorkbook(new File(basePath + "/test/sample.xls"));
+            InputStream is = assetManager.open("sample.xls");
+            sampleWb = Workbook.getWorkbook(is);
         } catch (BiffException e) {
             e.printStackTrace();
         }

@@ -10,6 +10,7 @@ package com.client_wifi;
 import android.annotation.SuppressLint;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -51,14 +52,16 @@ public class ProfileDialog extends DialogFragment implements View.OnClickListene
     //Путевая координата
     private EditText railwayCoordinate;
     private EditText comment;
+    private SharedPreferences sharedPreferences;
 
-    public ProfileDialog(ProfileView profileview, long id, ArrayAdapter adapter, SparseBooleanArray sbArray) {
+    public ProfileDialog(ProfileView profileview, long id, ArrayAdapter adapter, SparseBooleanArray sbArray, SharedPreferences sharedPreferences) {
         this.sbArray = sbArray;
         this.profileView = profileview;
         this.strings = profileview.profiles_titles;
         this.profile = profileview.profiles.get((int)id);
         this.id = (int)id;
         this.adapter = adapter;
+        this.sharedPreferences = sharedPreferences;
     }
 
 
@@ -141,9 +144,23 @@ public class ProfileDialog extends DialogFragment implements View.OnClickListene
                 profile.railwaySide = railwaySide.isChecked();
                 //Путевая координата
                 profile.railwayCoordinate = String.valueOf(railwayCoordinate.getText());
+                profile.location = String.valueOf(currentLocationText.getText());
                 //Комментарии
                 profile.comment = String.valueOf(comment.getText());
 
+                if (id == 0) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("operatorCode",profile.operatorCode);
+                    editor.putString("ZDName",profile.ZDName);
+                    editor.putString("railwayDistance",profile.railwayDistance);
+                    editor.putString("railwayNumber",profile.railwayNumber);
+                    editor.putString("railwayPlan",profile.railwayPlan);
+                    editor.putBoolean("railwaySide",profile.railwaySide);
+                    editor.putString("railwayCoordinate",profile.railwayCoordinate);
+                    editor.putString("location",profile.location);
+                    editor.putString("comment",profile.comment);
+                    editor.apply();
+                }
                 //Уведомляем адаптер о изменении
                 adapter.notifyDataSetChanged();
                 dismiss();

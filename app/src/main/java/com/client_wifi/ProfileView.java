@@ -1,6 +1,7 @@
 package com.client_wifi;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -42,7 +43,7 @@ public class ProfileView extends ImageView {
     public int width;
     public int height;
     public LinearLayout.LayoutParams layoutParams;
-
+    private AssetManager am;
     public ArrayList<Profile> profiles = new ArrayList<>();
     public ArrayList<String> profiles_titles = new ArrayList<>();
     static private double WIDTH_KOEF = 0.01;
@@ -59,6 +60,7 @@ public class ProfileView extends ImageView {
         height = height_;
         layoutParams = new LinearLayout.LayoutParams(width, height);
         layoutParams.gravity = Gravity.CENTER;
+        am = context.getAssets();
     }
 
     public void addProfile(Profile profile) {
@@ -145,7 +147,7 @@ public class ProfileView extends ImageView {
 
     public void WriteXLS(String fileName) throws IOException, WriteException {
         //TODO добавить запись координат
-        WriteExcel we = new WriteExcel(profiles);
+        WriteExcel we = new WriteExcel(profiles,am);
         //String fileName;
         Calendar calendar;
 
