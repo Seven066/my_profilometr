@@ -9,6 +9,9 @@
         android:title="@string/pref_header_notifications"
         android:icon="@drawable/ic_notifications_black_24dp" />
 
+    <header android:fragment="com.client_wifi.SettingsActivity$DrawingPreferenceFragment"
+        android:title="@string/pref_header_drawing" />
+
     <header android:fragment="com.client_wifi.SettingsActivity$DataSyncPreferenceFragment"
         android:title="@string/pref_header_data_connection" android:icon="@drawable/ic_sync_black_24dp" />
 

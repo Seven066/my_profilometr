@@ -1,11 +1,13 @@
 package com.client_wifi;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -50,6 +52,8 @@ public class ProfileView extends ImageView {
     static private double HEIGHT_KOEF = 0.02;
     public double shift_X = 10.0;
     public double shift_Y = 5.0;
+    private boolean drawLine;
+    private SharedPreferences prefs;
     public ProfileView(Context context) {
         super(context);
     }
@@ -61,6 +65,7 @@ public class ProfileView extends ImageView {
         layoutParams = new LinearLayout.LayoutParams(width, height);
         layoutParams.gravity = Gravity.CENTER;
         am = context.getAssets();
+        prefs = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     public void addProfile(Profile profile) {
@@ -86,15 +91,26 @@ public class ProfileView extends ImageView {
         };
 
         if (profiles != null) {
+            drawLine = prefs.getBoolean("drawing_lines",true);
             paint.setStrokeWidth(2);
             for (int j = 0; j < profiles.size(); j++) {
-                if (profiles.get(j).drawable) {
-                    if (!profiles.get(j).isDrawed) {
+                Profile profile = profiles.get(j);
+                if (profile.drawable) {
+                    if (!profile.isDrawed) {
                         paint.setColor(color[j % 3]);
-                        for (int i = 1; i < profiles.get(j).size; i++) {
-                            Profile profile = profiles.get(j);
-                            canvas.drawPoint((float) (WIDTH_KOEF * width * (profile.double_[i][0] + shift_X)),
-                                    (float) (height - (HEIGHT_KOEF * height * (profile.double_[i][1] + shift_Y))), paint);
+                        if (!drawLine) {
+                            for (int i = 1; i < profile.size; i++) {
+                                canvas.drawPoint((float) (WIDTH_KOEF * width * (profile.double_[i][0] + shift_X)),
+                                        (float) (height - (HEIGHT_KOEF * height * (profile.double_[i][1] + shift_Y))), paint);
+                            }
+                        }
+                        else{
+                            for (int i = 0; i < profile.size-1; i++) {
+                                canvas.drawLine((float) (WIDTH_KOEF * width * (profile.double_[i][0] + shift_X)),
+                                                (float) (height - (HEIGHT_KOEF * height * (profile.double_[i][1] + shift_Y))),
+                                                (float) (WIDTH_KOEF * width * (profile.double_[i+1][0] + shift_X)),
+                                                (float) (height - (HEIGHT_KOEF * height * (profile.double_[i+1][1] + shift_Y))), paint);
+                            }
                         }
                     }
                 }

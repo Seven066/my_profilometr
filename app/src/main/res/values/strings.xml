@@ -115,6 +115,10 @@
     <string name="railwayPlan">План пути</string>
     <string name="railwayDistance">Дистанция пути</string>
     <string name="railwayCoordinate">Путевая координата</string>
+    <string name="pref_drawing_lines">Рисовать профиль линией</string>
+    <string name="pref_circuit_drawing_lines_off">Профиль будет нарисован точками</string>
+    <string name="pref_circuit_drawing_lines_on">Профиль будет нарисован линией</string>
+    <string name="pref_header_drawing">Настройки отображения</string>
 
 
     //from_strings_activity
