@@ -127,11 +127,10 @@
 
         <Button
             android:id="@+id/measuring"
-            android:layout_width="130sp"
+            android:layout_width="230sp"
             android:layout_height="50sp"
             android:onClick="measuring"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:drawableLeft="@drawable/rels20"
             android:text="@string/measuring" />
 
         <ProgressBar
@@ -141,7 +140,7 @@
             android:id="@+id/progress_measuring"
             android:indeterminate="false" />
 
-        <Button
+        Button
             android:id="@+id/demoMeasuring"
             android:layout_width="80sp"
             android:layout_height="50sp"
@@ -149,7 +148,7 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/demoMeasuring" />
 
-        <Button
+        Button
             android:id="@+id/button"
             android:layout_width="80sp"
             android:layout_height="50sp"

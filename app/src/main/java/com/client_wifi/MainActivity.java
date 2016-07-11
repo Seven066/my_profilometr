@@ -180,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
                     if (socket != null) {
                         connection_status.setTextColor(Color.BLUE);
                         connection_status.setText("Подключен");
+                        measuring.setText("Измерение");
                         Log.d(LOG_TAG, "Set text connection status is Connect");
                     }
                     break;
@@ -225,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
         profile_layout = (FrameLayout) findViewById(R.id.profile_layout);
         battery_indicator = (TextView) findViewById(R.id.battery_indicator);
         measuring = (Button) findViewById(R.id.measuring);
+
         p = (ProgressBar) findViewById(R.id.progress_measuring);
         p.setVisibility(View.INVISIBLE);
         connection_status = (TextView) findViewById(R.id.connection_status);
@@ -382,6 +384,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             if (socket != null) {
                 socket.close();
+                measuring.setText("Подключиться");
                 Log.d(LOG_TAG, "Disconnect");
                 receiverun = false;
                 connection_status.setTextColor(Color.RED);
@@ -396,59 +399,69 @@ public class MainActivity extends AppCompatActivity {
 
     public void Connect(View view) {
         Log.d(LOG_TAG, "Try connect");
+        if (!mWifi.isConnected()) {
+            ConnectivityManager connManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        }
         if (socket == null && mWifi.isConnected()) {
             receiverun = true;
             receiveThread = new Thread(new ClientThread());
             receiveThread.start();
         } else {
             Log.d(LOG_TAG, "Socket is not null or wifi not connected");
+            measuring.setText("Подключение");
         }
     }
 
     public void measuring(final View view) {
+        if (socket == null) {
+            Connect(null);
+            Log.d(LOG_TAG, "button try connect");
+        } else {
+            Log.d(LOG_TAG, "button try measure");
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                    1000 * 10, 10, locationListener);
+            locationManager.requestLocationUpdates(
+                    LocationManager.NETWORK_PROVIDER, 1000 * 10, 10,
+                    locationListener);
+            showLocation(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
 
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                1000 * 10, 10, locationListener);
-        locationManager.requestLocationUpdates(
-                LocationManager.NETWORK_PROVIDER, 1000 * 10, 10,
-                locationListener);
-        showLocation(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
-
-        try {
-            DOS.write(modBus.getFrameFunction06((byte) 0x20, (byte) 0x04, (byte) 0x00, (byte) 0x01));
-            Log.d(LOG_TAG, "Send bit start measuring");
-        } catch (Exception e) {
-            Log.d(LOG_TAG, "Error connection");
-            return;
-        }
-        progress = 0;
-        view.setClickable(false);
-        p.setVisibility(View.VISIBLE);
-        Runnable myThread = new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    while (progress < 60) {
-                        if (progress == 0) {
-                            progress++;
-                            DOS.write(modBus.getFrameFunction03((byte) 0x10, (byte) 0x04, (byte) 0x00, (byte) 0x1));
-                            Log.d(LOG_TAG, "Check bit battery");
-                        } else {
-                            progress++;
-                            DOS.write(modBus.getFrameFunction03((byte) 0x10, (byte) 0x03, (byte) 0x00, (byte) 0x1));
-                            Log.d(LOG_TAG, "Check bit finish measuring");
-                        }
-                        Thread.sleep(1000);
-                    }
-
-                } catch (Exception e) {
-                }
-                updateGUI.sendEmptyMessage(2);
+            try {
+                DOS.write(modBus.getFrameFunction06((byte) 0x20, (byte) 0x04, (byte) 0x00, (byte) 0x01));
+                Log.d(LOG_TAG, "Send bit start measuring");
+            } catch (Exception e) {
+                Log.d(LOG_TAG, "Error connection");
+                Disconnect(null);
+                return;
             }
-        };
-        new Thread(myThread).start();
-    }
+            progress = 0;
+            view.setClickable(false);
+            p.setVisibility(View.VISIBLE);
+            Runnable myThread = new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        while (progress < 60) {
+                            if (progress == 0) {
+                                progress++;
+                                DOS.write(modBus.getFrameFunction03((byte) 0x10, (byte) 0x04, (byte) 0x00, (byte) 0x1));
+                                Log.d(LOG_TAG, "Check bit battery");
+                            } else {
+                                progress++;
+                                DOS.write(modBus.getFrameFunction03((byte) 0x10, (byte) 0x03, (byte) 0x00, (byte) 0x1));
+                                Log.d(LOG_TAG, "Check bit finish measuring");
+                            }
+                            Thread.sleep(1000);
+                        }
 
+                    } catch (Exception e) {
+                    }
+                    updateGUI.sendEmptyMessage(2);
+                }
+            };
+            new Thread(myThread).start();
+        }
+    }
     public int demoMeasuring_i;
 
     public void demoMeasuring(final View view) {
@@ -560,6 +573,8 @@ public class MainActivity extends AppCompatActivity {
                     int r = DIS.read(buf);
                 } catch (IOException e) {
                     Log.d(LOG_TAG, "Error read input stream");
+                    //receiverun = false;
+
                 }
                 String debug = modBus.bytesToHex(buf);
                 // Если пришла 3 функция посллать запрос на остальные данные
@@ -606,6 +621,7 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d(LOG_TAG, "Laser disconnected");
                                 updateGUI.sendEmptyMessage(3);
                                 progress = 60;
+                                //receiverun = false;
                             }
                         }
                         if (modBus.getFunc_03()[8] == 0x10 && modBus.getFunc_03()[9] == 0x04) {
@@ -796,6 +812,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(LOG_TAG, "Send bit ");
             } catch (Exception e) {
                 Log.d(LOG_TAG, "Error connection");
+
             }
         }
     }
