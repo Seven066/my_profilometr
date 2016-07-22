@@ -92,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
     private LocationManager locationManager;
     public static final String GOST_PREFERENCES = "gostSettings";
     public SharedPreferences gostSettings;
+    public SharedPreferences prefs;
+
+
     private LocationListener locationListener = new LocationListener() {
 
         @Override
@@ -237,6 +240,8 @@ public class MainActivity extends AppCompatActivity {
         textmeasure = (TextView) findViewById(R.id.textmeasure);
 
         //Добавление настроек
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
         gostSettings = getSharedPreferences(GOST_PREFERENCES, Context.MODE_PRIVATE);
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -328,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
         boolean deviceSound = prefs.getBoolean("notifications_circuit_sound", false);
         char ch = prefs.getString("wifi_name", "J").charAt(0);
         e_mail = prefs.getString("email_address", "cahek4293@mail.ru");
@@ -569,11 +574,27 @@ public class MainActivity extends AppCompatActivity {
             byte buf[] = new byte[260];
 
             while (receiverun) {
+
+                try {
+                    boolean deviceSound = prefs.getBoolean("notifications_circuit_sound", false);
+                    if (deviceSound) {
+                        DOS.write(modBus.getFrameFunction06((byte) 0x20, (byte) 0x08, (byte) 0x00, (byte) 0x01));
+
+                        Log.d(LOG_TAG, "Send bit mute");
+                    } else {
+                        DOS.write(modBus.getFrameFunction06((byte) 0x20, (byte) 0x08, (byte) 0x00, (byte) 0x00));
+                        Log.d(LOG_TAG, "Send bit unmute");
+                    }
+                } catch (Exception e) {
+                    Log.d(LOG_TAG, "Error send mute/unmute command");
+                    return;
+                }
+
                 try {
                     int r = DIS.read(buf);
                 } catch (IOException e) {
                     Log.d(LOG_TAG, "Error read input stream");
-                    //receiverun = false;
+                    receiverun = false;
 
                 }
                 String debug = modBus.bytesToHex(buf);
@@ -621,7 +642,7 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d(LOG_TAG, "Laser disconnected");
                                 updateGUI.sendEmptyMessage(3);
                                 progress = 60;
-                                //receiverun = false;
+                                receiverun = false;
                             }
                         }
                         if (modBus.getFunc_03()[8] == 0x10 && modBus.getFunc_03()[9] == 0x04) {

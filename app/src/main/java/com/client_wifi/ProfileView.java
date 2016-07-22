@@ -50,7 +50,7 @@ public class ProfileView extends ImageView {
     public ArrayList<String> profiles_titles = new ArrayList<>();
     static private double WIDTH_KOEF = 0.01;
     static private double HEIGHT_KOEF = 0.02;
-    public double shift_X = 10.0;
+    public double shift_X = 13;
     public double shift_Y = 5.0;
     private boolean drawLine;
     private SharedPreferences prefs;
