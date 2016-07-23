@@ -54,6 +54,7 @@ public class ProfileView extends ImageView {
     public double shift_Y = 5.0;
     private boolean drawLine;
     private SharedPreferences prefs;
+    public String GostType;
     public ProfileView(Context context) {
         super(context);
     }
@@ -72,7 +73,10 @@ public class ProfileView extends ImageView {
         profiles.add(profile);
         profiles_titles.add(profile.title);
     }
-
+    public void setShift(double x, double y){
+        this.shift_X = x;
+        this.shift_Y = y;
+    }
     @Override
     protected void onDraw(Canvas canvas) {
         Paint paint = new Paint();

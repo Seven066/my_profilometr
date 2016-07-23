@@ -6,12 +6,8 @@
 
 
     <string-array name="types_list_titles">
-        <item>Р8</item>
-        <item>Р11</item>
-        <item>Р18‎</item>
-        <item>Р24</item>
         <item>Р50‎</item>
-        <item>Р65 левый</item>
+        <item>Р65</item>
         <item>Р75</item>
 
     </string-array>
@@ -51,7 +47,7 @@
     <string name="number_way">Номер пути</string>
     <string name="number_way_default">1</string>
     <string name="way_plane">План пути</string>
-    <string name="type">Тип рельса</string>
+    <string name="type">Тип рельса(ГОСТ)</string>
     <string name="way_point">Путевая координата</string>
     <string name="Cancel">Отмена</string>
     <string name="Save">Записать</string>

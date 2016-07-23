@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -21,7 +20,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -30,15 +28,12 @@ import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -93,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String GOST_PREFERENCES = "gostSettings";
     public SharedPreferences gostSettings;
     public SharedPreferences prefs;
-
-
+    public String GostType;
+    double[][] GostProfile;
     private LocationListener locationListener = new LocationListener() {
 
         @Override
@@ -133,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
                     p.setVisibility(View.INVISIBLE);
 
                     Mathematics mathematics = new Mathematics();
+                    mathematics.GOST_Profile = GostProfile;
                     mathematics.calc(modBus.ReceiveProfile);
 
                     //profileview.addProfile(new Profile(modBus.XYProfile, modBus.PROFILE_SIZE, "Измерение " + i++, params));
@@ -241,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Добавление настроек
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
+        GostType = prefs.getString("gost_type","2");
         gostSettings = getSharedPreferences(GOST_PREFERENCES, Context.MODE_PRIVATE);
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -262,6 +258,20 @@ public class MainActivity extends AppCompatActivity {
         profil_height = (int) (profil_width * PROFLE_WIDTH_HEIGHT_RATIO);
 
         profileview = new ProfileView(this, profile_layout.getLayoutParams().width, profile_layout.getLayoutParams().height);
+        profileview.GostType = GostType;
+        if (GostType.equals("1"))
+        {
+            profileview.setShift(14,5);
+        }
+        if (GostType.equals("2"))
+        {
+            profileview.setShift(13,5);
+        }
+        if (GostType.equals("3"))
+        {
+
+            profileview.setShift(13,5);
+        }
         profile_layout.addView(profileview, profileview.layoutParams);
 
         lvMain = (ListView) findViewById(R.id.lvMain);
@@ -313,7 +323,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         double[] v = new double[5];
-        Profile profile = new Profile(Mathematics.GOST_Profile1, Mathematics.GOST_Profile1.length, "ГОСТ", Calendar.getInstance().getTime(), v);
+
+        String GostName = "ГОСТ65";
+
+        GostProfile = Mathematics.GOST_Profile65;
+
+        if (GostType.equals("1")) {
+            GostProfile = Mathematics.GOST_Profile50;
+            GostName = "ГОСТ50";
+        }
+        if (GostType.equals("2")){
+            GostProfile = Mathematics.GOST_Profile65;
+            GostName = "ГОСТ65";
+        }
+        if (GostType.equals("3")){
+            GostProfile = Mathematics.GOST_Profile75;
+            GostName = "ГОСТ75";
+        }
+
+        Profile profile = new Profile(GostProfile, GostProfile.length, GostName, Calendar.getInstance().getTime(), v);
         profile.setCoordinates(0, 0);
         profile.drawable = true;
         profile.isDrawed = false;
@@ -322,6 +350,7 @@ public class MainActivity extends AppCompatActivity {
                 gostSettings.getString("comment","d"));
         profileview.addProfile(profile);
         lvMain.setItemChecked((profileview.profiles_titles.size() - 1), true);
+
     }
 
     @Override
@@ -478,7 +507,10 @@ public class MainActivity extends AppCompatActivity {
         showLocation(locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
 
         Mathematics mathematics = new Mathematics();
-        double demoProfileR[] = new double[]{17.78, 17.74, 17.74, 17.75, 17.78, 17.76, 17.57, 17.4, 17.26, 17.08, 16.97, 16.87, 16.74, 16.54, 16.37, 16.17, 15.95, 15.76, 15.63, 15.55, 15.51, 15.43, 15.27, 15.15, 15.13, 15.15, 15.04, 14.97, 14.96, 14.99, 15.02, 15.08, 15.15, 15.2, 15.26, 15.38, 15.53, 15.66, 15.74, 15.88, 16.11, 16.18, 16.2, 16.22, 16.36, 16.47, 16.53, 16.66, 16.77, 16.96, 17.06, 17.09, 17.28, 17.43, 17.56, 17.69, 17.67, 17.65, 17.69, 17.73, 17.83, 17.94, 18.01, 18.1, 18.2, 18.25, 18.29, 18.35, 18.4, 18.44, 18.5, 18.51, 18.48, 18.5, 18.53, 18.52, 18.53, 18.56, 18.61, 18.69, 18.72, 18.67, 18.66, 18.65, 18.64, 18.63, 18.57, 18.48, 18.45, 18.39, 18.32, 18.29, 18.27, 18.23, 18.17, 18.16, 18.06, 17.94, 17.88, 17.78, 17.71, 17.67, 17.55, 17.45, 17.39, 17.24, 17.03, 16.93, 16.81, 16.61, 16.45, 16.31, 16.12, 15.92, 15.75, 15.65, 15.54, 15.32, 15.11, 14.93, 14.72, 14.5, 14.25, 14.02, 13.78, 13.61, 13.4, 13.13, 12.81, 12.44, 12.08, 11.82, 11.61, 11.32, 11.0, 10.59, 10.28, 9.99, 9.7, 9.37, 8.99, 8.5, 8.0, 7.59, 7.26, 6.81, 6.34, 5.89, 5.42, 5.01, 4.64, 4.44, 4.34, 4.4, 4.54, 4.72, 4.85, 4.93, 5.1, 5.26, 5.4, 5.6, 5.8, 5.99, 6.24, 6.52, 6.7, 6.88, 7.08, 7.29, 7.5, 7.75, 8.08, 8.43, 8.7, 8.9, 9.13, 9.4, 9.62, 9.88, 10.05, 10.27, 10.46, 10.63, 10.81, 11.02, 11.25, 11.5, 11.69, 11.76, 11.86, 12.01, 12.19, 12.32, 12.46, 12.48, 12.5, 12.52, 12.58, 12.68,};
+        mathematics.GOST_Profile = GostProfile;
+        mathematics.GOST_ProfileType = GostType;
+        //double demoProfileR[] = new double[]{17.78, 17.74, 17.74, 17.75, 17.78, 17.76, 17.57, 17.4, 17.26, 17.08, 16.97, 16.87, 16.74, 16.54, 16.37, 16.17, 15.95, 15.76, 15.63, 15.55, 15.51, 15.43, 15.27, 15.15, 15.13, 15.15, 15.04, 14.97, 14.96, 14.99, 15.02, 15.08, 15.15, 15.2, 15.26, 15.38, 15.53, 15.66, 15.74, 15.88, 16.11, 16.18, 16.2, 16.22, 16.36, 16.47, 16.53, 16.66, 16.77, 16.96, 17.06, 17.09, 17.28, 17.43, 17.56, 17.69, 17.67, 17.65, 17.69, 17.73, 17.83, 17.94, 18.01, 18.1, 18.2, 18.25, 18.29, 18.35, 18.4, 18.44, 18.5, 18.51, 18.48, 18.5, 18.53, 18.52, 18.53, 18.56, 18.61, 18.69, 18.72, 18.67, 18.66, 18.65, 18.64, 18.63, 18.57, 18.48, 18.45, 18.39, 18.32, 18.29, 18.27, 18.23, 18.17, 18.16, 18.06, 17.94, 17.88, 17.78, 17.71, 17.67, 17.55, 17.45, 17.39, 17.24, 17.03, 16.93, 16.81, 16.61, 16.45, 16.31, 16.12, 15.92, 15.75, 15.65, 15.54, 15.32, 15.11, 14.93, 14.72, 14.5, 14.25, 14.02, 13.78, 13.61, 13.4, 13.13, 12.81, 12.44, 12.08, 11.82, 11.61, 11.32, 11.0, 10.59, 10.28, 9.99, 9.7, 9.37, 8.99, 8.5, 8.0, 7.59, 7.26, 6.81, 6.34, 5.89, 5.42, 5.01, 4.64, 4.44, 4.34, 4.4, 4.54, 4.72, 4.85, 4.93, 5.1, 5.26, 5.4, 5.6, 5.8, 5.99, 6.24, 6.52, 6.7, 6.88, 7.08, 7.29, 7.5, 7.75, 8.08, 8.43, 8.7, 8.9, 9.13, 9.4, 9.62, 9.88, 10.05, 10.27, 10.46, 10.63, 10.81, 11.02, 11.25, 11.5, 11.69, 11.76, 11.86, 12.01, 12.19, 12.32, 12.46, 12.48, 12.5, 12.52, 12.58, 12.68,};
+        double demoProfileR[] = new double[]{12.68, 12.58, 12.52, 12.5, 12.48, 12.46, 12.32, 12.19, 12.01, 11.86, 11.76, 11.69, 11.5, 11.25, 11.02, 10.81, 10.63, 10.46, 10.27, 10.05, 9.88, 9.62, 9.4, 9.13, 8.9, 8.7, 8.43, 8.08, 7.75, 7.5, 7.29, 7.08, 6.88, 6.7, 6.52, 6.24, 5.99, 5.8, 5.6, 5.4, 5.26, 5.1, 4.93, 4.85, 4.72, 4.54, 4.4, 4.34, 4.44, 4.64, 5.01, 5.42, 5.89, 6.34, 6.81, 7.26, 7.59, 8, 8.5, 8.99, 9.37, 9.7, 9.99, 10.28, 10.59, 11, 11.32, 11.61, 11.82, 12.08, 12.44, 12.81, 13.13, 13.4, 13.61, 13.78, 14.02, 14.25, 14.5, 14.72, 14.93, 15.11, 15.32, 15.54, 15.65, 15.75, 15.92, 16.12, 16.31, 16.45, 16.61, 16.81, 16.93, 17.03, 17.24, 17.39, 17.45, 17.55, 17.67, 17.71, 17.78, 17.88, 17.94, 18.06, 18.16, 18.17, 18.23, 18.27, 18.29, 18.32, 18.39, 18.45, 18.48, 18.57, 18.63, 18.64, 18.72, 18.69, 18.67, 18.66, 18.65, 18.61, 18.56, 18.53, 18.53, 18.52, 18.51, 18.5, 18.5, 18.48, 18.44, 18.4, 18.35, 18.29, 18.25, 18.2, 18.1, 18.01, 17.94, 17.83, 17.73, 17.69, 17.69, 17.67, 17.65, 17.56, 17.43, 17.28, 17.09, 17.06, 16.96, 16.77, 16.66, 16.53, 16.47, 16.36, 16.22, 16.2, 16.18, 16.11, 15.88, 15.74, 15.66, 15.53, 15.38, 15.26, 15.2, 15.15, 15.08, 15.02, 14.99, 14.96, 14.97, 15.04, 15.13, 15.15, 15.15, 15.27, 15.43, 15.51, 15.55, 15.63, 15.76, 15.95, 16.17, 16.37, 16.54, 16.74, 16.87, 16.97, 17.08, 17.26, 17.4, 17.57, 17.74, 17.74, 17.75, 17.76, 17.78, 17.78};
         mathematics.calc(demoProfileR);
         Profile profile = new Profile(mathematics.getProfile_xy(), mathematics.getProfileSize(), "случайное измерение " + demoMeasuring_i++, Calendar.getInstance().getTime(), mathematics.getParams(), profileview.profiles.get(profileview.profiles.size() - 1).railwayNumber, profileview.profiles.get(profileview.profiles.size() - 1).railwaySide);
         profile.location = txlocation.getText().toString();

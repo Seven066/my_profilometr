@@ -201,16 +201,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("date_of_registration"));
-            bindPreferenceSummaryToValue(findPreference("time_of_registration"));
-            bindPreferenceSummaryToValue(findPreference("number_way"));
-            bindPreferenceSummaryToValue(findPreference("type"));
-            bindPreferenceSummaryToValue(findPreference("way_plane"));
-            bindPreferenceSummaryToValue(findPreference("date_of_registration"));
-            bindPreferenceSummaryToValue(findPreference("way_distance"));
-            bindPreferenceSummaryToValue(findPreference("operator_code"));
-            bindPreferenceSummaryToValue(findPreference("way_name"));
-            bindPreferenceSummaryToValue(findPreference("way_point"));
+
+            bindPreferenceSummaryToValue(findPreference("gost_type"));
+
+
         }
     }
 

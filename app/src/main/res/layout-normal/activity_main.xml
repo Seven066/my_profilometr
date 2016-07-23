@@ -133,6 +133,13 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/measuring" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="demo"
+            android:onClick="demoMeasuring"
+            android:id="@+id/demoMeasuring" />
+
         <ProgressBar
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
