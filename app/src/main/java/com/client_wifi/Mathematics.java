@@ -45,7 +45,7 @@ public class Mathematics {
             {29.3072, 32.8233},
             {32.3826, 32.8233},
             {35.639, 32.8233},
-            {36, 33},
+            {36, 36}, //center
             {39.0763, 32.8233},
             {41.4281, 32.8233},
             {43.9608, 32.8233},
@@ -132,7 +132,7 @@ public class Mathematics {
             {30.8, 35},
             {32, 35},
             {34, 35},
-            {37, 35},
+            {37, 37}, //center y =35
             {37.6, 35},
             {41.2, 35},
             {44.8, 35},
@@ -204,7 +204,7 @@ public class Mathematics {
 
     public void calc(double[] inmas) {  // inmas ReceiveProfile
         profileSize = inmas.length;
-        double L1 = 13;
+
         double shift_x = 0, shift_y = 0, shift_fi = 0;
         shift_fi = 0.1186;
         shift_x = 38.5;//подбор
@@ -225,10 +225,15 @@ public class Mathematics {
             profile_xy[i][0] = (radius - inmas[i]) * Math.cos(i * radPerTick + shift_fi) + shift_x;
             profile_xy[i][1] = (radius - inmas[i]) * Math.sin(i * radPerTick + shift_fi) + shift_y;
         }
+        calcParams(profile_xy);
+    }
+
+    public void calcParams(double[][] profile_xy){
         //-------------------------------------------------------------------------------------
         //Рассчет Hv
         //http://habrahabr.ru/post/148325/
         //-------------------------------------------------------------------------------------
+        double L1 = 13;
         double a, b, c, x1, x2, y1, y2;
         int Hv_idx = 0;
         double Hv = 0, Hv_x = 0, Hv_y = 0;
@@ -346,7 +351,7 @@ public class Mathematics {
 
 
         H45 = Math.sqrt((ProfileInterceptPoint.x - GostInterceptPoint.x)*(ProfileInterceptPoint.x - GostInterceptPoint.x) +
-                        (ProfileInterceptPoint.y - GostInterceptPoint.y)*(ProfileInterceptPoint.y - GostInterceptPoint.y));
+                (ProfileInterceptPoint.y - GostInterceptPoint.y)*(ProfileInterceptPoint.y - GostInterceptPoint.y));
 
         //поиск площадей
         double S, S1, S2;
@@ -356,7 +361,7 @@ public class Mathematics {
 
         for (int i = 0; i < profileSize - 1; i++) {
             S = 0.5*( (center_point_x - profile_xy[i+1][0])*(profile_xy[i][1] - profile_xy[i+1][1]) -
-                      (profile_xy[i][0] - profile_xy[i+1][0])*(center_point_y - profile_xy[i+1][1]) );
+                    (profile_xy[i][0] - profile_xy[i+1][0])*(center_point_y - profile_xy[i+1][1]) );
             S2 += S;
         }
         //площадь госта. Убрать, забить константой
@@ -373,7 +378,6 @@ public class Mathematics {
         params[4] = Hv + 0.5 * H45;
         params[5] = Math.abs(S1);
         params[6] = Math.abs(S2);
-
     }
 
     public double[] getParams() {

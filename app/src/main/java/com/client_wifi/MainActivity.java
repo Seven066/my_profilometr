@@ -19,6 +19,8 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.Preference;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
@@ -51,6 +53,7 @@ import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.prefs.Preferences;
 
 import jxl.write.WriteException;
 
@@ -90,6 +93,9 @@ public class MainActivity extends AppCompatActivity {
     public SharedPreferences prefs;
     public String GostType;
     double[][] GostProfile;
+
+    private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
+
     private LocationListener locationListener = new LocationListener() {
 
         @Override
@@ -237,6 +243,72 @@ public class MainActivity extends AppCompatActivity {
 
         //Добавление настроек
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        //listener on changed sort order preference:
+        prefListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+                Log.d(LOG_TAG,"Settings key changed: " + key);
+
+
+                if (key.equals("gost_type")){
+                    String GostName = "";
+                    double[] v = new double[5];
+
+                    GostType = prefs.getString("gost_type","1");
+
+                    if (GostType.equals("1")) {
+                        GostProfile = Mathematics.GOST_Profile50;
+                        GostName = "ГОСТ50";
+                        profileview.setShift(14,5);
+                    }
+                    if (GostType.equals("2")){
+                        GostProfile = Mathematics.GOST_Profile65;
+                        GostName = "ГОСТ65";
+                        profileview.setShift(13,5);
+                    }
+                    if (GostType.equals("3")){
+                        GostProfile = Mathematics.GOST_Profile75;
+                        GostName = "ГОСТ75";
+                        profileview.setShift(13,5);
+                    }
+                    //заменили старый гост на новый
+                    Profile newGost = new Profile(GostProfile, GostProfile.length, GostName, Calendar.getInstance().getTime(), v);
+                    newGost.setCoordinates(0, 0);
+                    newGost.drawable = true;
+                    newGost.isDrawed = false;
+                    newGost.setInfo(gostSettings.getString("operatorCode","1"),gostSettings.getString("ZDName","s"),gostSettings.getString("railwayDistance","d"), gostSettings.getString("railwayNumber","d"),
+                            gostSettings.getString("railwayPlan","d"),gostSettings.getBoolean("railwaySide",true), gostSettings.getString("railwayCoordinate","d"), gostSettings.getString("location","0 lat, 0 lon"),
+                            gostSettings.getString("comment","d"));
+                    profileview.changeProfile(0,newGost);
+                    adapter.notifyDataSetChanged();
+                    profileview.invalidate();
+
+                    //пересчитываем параметры
+                    Mathematics mathematics = new Mathematics();
+                    mathematics.GOST_Profile = GostProfile;
+                    for (int j = 1; j < profileview.profiles.size(); j++) {
+                        Profile profile = profileview.profiles.get(j);
+                        mathematics.calcParams(profile.double_);
+                        profile.params = mathematics.getParams();
+                    }
+                    //пишем новые параметры в текстмеж
+                   /* double[] v = profile.params;
+                    DecimalFormat df = new DecimalFormat("0.00");
+                    textmeasure.setText(
+                            "Hv\t=\t" + df.format(v[0]) + "\tmm" + "\n" +
+                                    "Hh\t=\t" + df.format(v[1]) + "\tmm" + "\n" +
+                                    "Hr\t=\t" + df.format(v[2]) + "\tmm" + "\n" +
+                                    "Hпр\t=\t" + df.format(v[3]) + "\tmm" + "\n" +
+                                    "Hпр45\t=\t" + df.format(v[4]) + "\tmm" + "\n" +
+                                    "S1\t=\t" + df.format(v[5]) + "\tmm" + "\n" +
+                                    "S2\t=\t" + df.format(v[6]) + "\tmm" + "\n");*/
+                }
+            }
+        };
+
+        prefs.registerOnSharedPreferenceChangeListener(prefListener);
+
         GostType = prefs.getString("gost_type","2");
         gostSettings = getSharedPreferences(GOST_PREFERENCES, Context.MODE_PRIVATE);
         Display display = getWindowManager().getDefaultDisplay();
@@ -269,7 +341,6 @@ public class MainActivity extends AppCompatActivity {
         }
         if (GostType.equals("3"))
         {
-
             profileview.setShift(13,5);
         }
         profile_layout.addView(profileview, profileview.layoutParams);
@@ -350,11 +421,15 @@ public class MainActivity extends AppCompatActivity {
                 gostSettings.getString("comment","d"));
         profileview.addProfile(profile);
         lvMain.setItemChecked((profileview.profiles_titles.size() - 1), true);
-
     }
 
     @Override
     protected void onResume() {
+        Log.d(LOG_TAG,"on resume");
+        if (prefs.getString("gost_type","2").equals(GostType)){
+            Log.d(LOG_TAG,"gost profile has changed");
+        }
+
         super.onResume();
         Connect(null);
         try {
@@ -566,7 +641,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-
+            Log.d(LOG_TAG, "мы попали в клиентсред");
 
             if ((socket == null) && (mWifi.isConnected())) {
                 InetAddress serverAddr = null;
@@ -605,22 +680,22 @@ public class MainActivity extends AppCompatActivity {
 
             byte buf[] = new byte[260];
 
-            while (receiverun) {
+            try {
+                boolean deviceSound = prefs.getBoolean("notifications_circuit_sound", false);
+                if (deviceSound) {
+                    DOS.write(modBus.getFrameFunction06((byte) 0x20, (byte) 0x08, (byte) 0x00, (byte) 0x01));
 
-                try {
-                    boolean deviceSound = prefs.getBoolean("notifications_circuit_sound", false);
-                    if (deviceSound) {
-                        DOS.write(modBus.getFrameFunction06((byte) 0x20, (byte) 0x08, (byte) 0x00, (byte) 0x01));
-
-                        Log.d(LOG_TAG, "Send bit mute");
-                    } else {
-                        DOS.write(modBus.getFrameFunction06((byte) 0x20, (byte) 0x08, (byte) 0x00, (byte) 0x00));
-                        Log.d(LOG_TAG, "Send bit unmute");
-                    }
-                } catch (Exception e) {
-                    Log.d(LOG_TAG, "Error send mute/unmute command");
-                    return;
+                    Log.d(LOG_TAG, "Send bit mute");
+                } else {
+                    DOS.write(modBus.getFrameFunction06((byte) 0x20, (byte) 0x08, (byte) 0x00, (byte) 0x00));
+                    Log.d(LOG_TAG, "Send bit unmute");
                 }
+            } catch (Exception e) {
+                Log.d(LOG_TAG, "Error send mute/unmute command");
+                return;
+            }
+
+            while (receiverun) {
 
                 try {
                     int r = DIS.read(buf);
@@ -873,4 +948,20 @@ public class MainActivity extends AppCompatActivity {
     public void testXls(final View view) throws IOException, WriteException {
         profileview.WriteXLS("ss");
     }
+
+
+/*
+    public class SettingsActivity extends PreferenceActivity
+            implements SharedPreferences.OnSharedPreferenceChangeListener {
+        public static final String KEY_GOST_TYPE = "gost_type";
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
+                                              String key) {
+            if (key.equals(KEY_GOST_TYPE)) {
+                Log.d(LOG_TAG,"we in listpref listner");
+                Preference connectionPref = findPreference(key);
+                // Set summary to be the user-description for the selected value
+                connectionPref.setSummary(sharedPreferences.getString(key, ""));
+            }
+        }
+    }*/
 }

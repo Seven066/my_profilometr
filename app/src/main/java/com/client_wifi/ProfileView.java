@@ -68,7 +68,11 @@ public class ProfileView extends ImageView {
         am = context.getAssets();
         prefs = PreferenceManager.getDefaultSharedPreferences(context);
     }
-
+    public void changeProfile(int idx, Profile profile)
+    {
+        profiles.set(idx,profile);
+        profiles_titles.set(idx,profile.title);
+    }
     public void addProfile(Profile profile) {
         profiles.add(profile);
         profiles_titles.add(profile.title);
