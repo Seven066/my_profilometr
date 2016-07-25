@@ -45,7 +45,7 @@ public class Mathematics {
             {29.3072, 32.8233},
             {32.3826, 32.8233},
             {35.639, 32.8233},
-            {36, 36}, //center
+            {36, 32.8233}, //center
             {39.0763, 32.8233},
             {41.4281, 32.8233},
             {43.9608, 32.8233},
@@ -132,7 +132,7 @@ public class Mathematics {
             {30.8, 35},
             {32, 35},
             {34, 35},
-            {37, 37}, //center y =35
+            {37, 35}, //center y =35
             {37.6, 35},
             {41.2, 35},
             {44.8, 35},
@@ -334,7 +334,7 @@ public class Mathematics {
             P2.x = profile_xy[H45_idx + 1][0];
             P2.y = profile_xy[H45_idx + 1][1];
             H45_idx++;
-        } while ((!interception.isHasIntercept(P1,P2,Line45_1,Line45_2)&(H45_idx<profileSize-2)));
+        } while ((!interception.isHasIntercept(P1,P2,Line45_1,Line45_2)&(H45_idx<profile_xy.length-2)));
         ProfileInterceptPoint = interception.interceptPoint(P1,P2,Line45_1,Line45_2);
 
         //Поиск точки пересечения с профилем по ГОСТ
@@ -359,7 +359,7 @@ public class Mathematics {
         S2 = 0;
         double center_point_x = 38.5,center_point_y = 0;
 
-        for (int i = 0; i < profileSize - 1; i++) {
+        for (int i = 0; i < profile_xy.length - 1; i++) {
             S = 0.5*( (center_point_x - profile_xy[i+1][0])*(profile_xy[i][1] - profile_xy[i+1][1]) -
                     (profile_xy[i][0] - profile_xy[i+1][0])*(center_point_y - profile_xy[i+1][1]) );
             S2 += S;

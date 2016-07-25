@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
                     double[] v = profile.params;
                     DecimalFormat df = new DecimalFormat("0.00");
                     textmeasure.setText(
+                            "параметры " + profile.title + "\n" +
                             "Hv\t=\t" + df.format(v[0]) + "\tmm" + "\n" +
                                     "Hh\t=\t" + df.format(v[1]) + "\tmm" + "\n" +
                                     "Hr\t=\t" + df.format(v[2]) + "\tmm" + "\n" +
@@ -253,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (key.equals("gost_type")){
                     String GostName = "";
-                    double[] v = new double[5];
+                    double[] v = new double[7];
 
                     GostType = prefs.getString("gost_type","1");
 
@@ -287,22 +288,25 @@ public class MainActivity extends AppCompatActivity {
                     //пересчитываем параметры
                     Mathematics mathematics = new Mathematics();
                     mathematics.GOST_Profile = GostProfile;
+                    mathematics.GOST_ProfileType = GostType;
+                    Profile profile = profileview.profiles.get(1);
                     for (int j = 1; j < profileview.profiles.size(); j++) {
-                        Profile profile = profileview.profiles.get(j);
+                        profile = profileview.profiles.get(j);
                         mathematics.calcParams(profile.double_);
                         profile.params = mathematics.getParams();
                     }
-                    //пишем новые параметры в текстмеж
-                   /* double[] v = profile.params;
+
+                    v = profile.params;
                     DecimalFormat df = new DecimalFormat("0.00");
                     textmeasure.setText(
-                            "Hv\t=\t" + df.format(v[0]) + "\tmm" + "\n" +
+                            "параметры " + profile.title + "\n" +
+                                    "Hv\t=\t" + df.format(v[0]) + "\tmm" + "\n" +
                                     "Hh\t=\t" + df.format(v[1]) + "\tmm" + "\n" +
                                     "Hr\t=\t" + df.format(v[2]) + "\tmm" + "\n" +
-                                    "Hпр\t=\t" + df.format(v[3]) + "\tmm" + "\n" +
-                                    "Hпр45\t=\t" + df.format(v[4]) + "\tmm" + "\n" +
+                                    "H45\t=\t" + df.format(v[3]) + "\tmm" + "\n" +
+                                    "R45\t=\t" + df.format(v[4]) + "\tmm" + "\n" +
                                     "S1\t=\t" + df.format(v[5]) + "\tmm" + "\n" +
-                                    "S2\t=\t" + df.format(v[6]) + "\tmm" + "\n");*/
+                                    "S2\t=\t" + df.format(v[6]) + "\tmm" + "\n");
                 }
             }
         };
@@ -357,8 +361,9 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                double[] v = profileview.profiles.get(position).params;
+                double[] v =  profileview.profiles.get(position).params;
                 textmeasure.setText(
+                        "параметры " + profileview.profiles.get(position).title + "\n" +
                         "Hv\t=\t" + df.format(v[0]) + "\tmm" + "\n" +
                                 "Hh\t=\t" + df.format(v[1]) + "\tmm" + "\n" +
                                 "Hr\t=\t" + df.format(v[2]) + "\tmm" + "\n" +
@@ -598,16 +603,12 @@ public class MainActivity extends AppCompatActivity {
 
         profile.drawable = true;
         profile.isDrawed = false;
-        double iznos = 0;
-        for (int i = 155; i >= 0; i--) {
-            iznos += Math.random() * 0.05;
-            profile.double_[i][1] -= iznos;
-        }
         profileview.addProfile(profile);
 
         double[] v = profile.params;
         DecimalFormat df = new DecimalFormat("0.00");
         textmeasure.setText(
+                "параметры " + profile.title + "\n" +
                 "Hv\t=\t" + df.format(v[0]) + "\tmm" + "\n" +
                         "Hh\t=\t" + df.format(v[1]) + "\tmm" + "\n" +
                         "Hr\t=\t" + df.format(v[2]) + "\tmm" + "\n" +
