@@ -289,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
                     Mathematics mathematics = new Mathematics();
                     mathematics.GOST_Profile = GostProfile;
                     mathematics.GOST_ProfileType = GostType;
-                    Profile profile = profileview.profiles.get(1);
+                    Profile profile = profileview.profiles.get(0);
                     for (int j = 1; j < profileview.profiles.size(); j++) {
                         profile = profileview.profiles.get(j);
                         mathematics.calcParams(profile.double_);
