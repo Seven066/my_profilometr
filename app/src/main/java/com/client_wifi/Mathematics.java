@@ -178,16 +178,103 @@ public class Mathematics {
     };
 
     static final double[][] GOST_Profile75 = new double[][]{
-            {17.24301075, -3.76344086},
-            {12.03010753, -2.634408602},
-            {10.82150538, -1.88172043},
-            {8.012903226, -1.129032258},
-            {5.208602151, -0.752688172},
-            {3.2, 0},
-            {1.595698925, 0.376344086},
-            {0.787096774, 1.129032258},
-            {0.378494624, 1.88172043},
-            {0.361290323, 3.387096774}
+            {7.70672, -3.9963},
+            {5.92837, -3.554},
+            {4.57683, -3.2887},
+            {3.36755, -2.9349},
+            {2.22941, -2.4926},
+            {1.51807, -1.9619},
+            {0.949001, -1.3428},
+            {0.451064, -0.812},
+            {0.0242604, -0.1044},
+            {0.0953943, 1.2223},
+            {0.0953943, 2.63754},
+            {0.0953943, 4.22966},
+            {0.0953943, 6.26404},
+            {0.0953943, 8.56377},
+            {0.237662, 10.33279},
+            {0.308796, 12.190262},
+            {0.451064, 13.95928},
+            {0.522198, 15.90521},
+            {0.664466, 17.76268},
+            {0.664466, 19.88551},
+            {0.7356, 22.09678},
+            {0.877867, 24.485},
+            {0.949001, 27.1385},
+            {1.02014, 29.9689},
+            {1.3758, 32.534},
+            {1.80261, 34.3915},
+            {2.44281, 36.0721},
+            {3.08302, 37.3988},
+            {3.86549, 38.5487},
+            {4.9325, 39.6986},
+            {5.99951, 40.9369},
+            {7.35105, 42.0867},
+            {8.77373, 42.7943},
+            {9.91187, 43.2366},
+            {11.1923, 43.6789},
+            {12.615, 44.2096},
+            {13.8242, 44.298},
+            {15.6737, 44.4749},
+            {17.5232, 44.7403},
+            {19.4438, 44.8287},
+            {21.2222, 44.9172},
+            {23.0716, 45.0056},
+            {25.4191, 45.271},
+            {27.4108, 45.4479},
+            {29.3314, 45.6248},
+            {31.1098, 45.8017},
+            {33.3861, 45.8901},
+            {35.6623, 45.9786},
+            {37.5, 46},
+            {39.3377, 45.9786},
+            {41.6139, 45.8901},
+            {43.8902, 45.8017},
+            {45.6686, 45.6248},
+            {47.5892, 45.4479},
+            {49.5809, 45.271},
+            {51.9284, 45.0056},
+            {53.7778, 44.9172},
+            {55.5562, 44.8287},
+            {57.4768, 44.7403},
+            {59.3263, 44.4749},
+            {61.1758, 44.298},
+            {62.385, 44.2096},
+            {63.8077, 43.6789},
+            {65.08813, 43.2366},
+            {66.22627, 42.7943},
+            {67.64895, 42.0867},
+            {69.00049, 40.9369},
+            {70.0675, 39.6986},
+            {71.13451, 38.5487},
+            {71.91698, 37.3988},
+            {72.55719, 36.0721},
+            {73.19739, 34.3915},
+            {73.6242, 32.534},
+            {73.97986, 29.9689},
+            {74.050999, 27.1385},
+            {74.122133, 24.485},
+            {74.2644, 22.09678},
+            {74.335534, 19.88551},
+            {74.335534, 17.76268},
+            {74.477802, 15.90521},
+            {74.548936, 13.95928},
+            {74.691204, 12.190262},
+            {74.762338, 10.33279},
+            {74.9046057, 8.56377},
+            {74.9046057, 6.26404},
+            {74.9046057, 4.22966},
+            {74.9046057, 2.63754},
+            {74.9046057, 1.2223},
+            {74.9757396, -0.1044},
+            {74.548936, -0.812},
+            {74.050999, -1.3428},
+            {73.48193, -1.9619},
+            {72.77059, -2.4926},
+            {71.63245, -2.9349},
+            {70.42317, -3.2887},
+            {69.07163, -3.554},
+            {67.29328, -3.9963}
     };
 
     public double[][] GOST_Profile = GOST_Profile50;
@@ -228,7 +315,7 @@ public class Mathematics {
         calcParams(profile_xy);
     }
 
-    public void calcParams(double[][] profile_xy){
+    public void calcParams(double[][] profile_xy) {
         //-------------------------------------------------------------------------------------
         //Рассчет Hv
         //http://habrahabr.ru/post/148325/
@@ -239,19 +326,16 @@ public class Mathematics {
         double Hv = 0, Hv_x = 0, Hv_y = 0;
         //Hv_idx = (int)(((1.5707 - shift_fi)/radPerTick) + 0.5);
 
-        GostParams gost = new GostParams(0,0,0,0,0);
+        GostParams gost = new GostParams(0, 0, 0, 0, 0);
         //TODO исправить для 1 и 3
-        if (GOST_ProfileType.equals("1"))
-        {
-            gost.setParams(0.1186,38.5,-4,36,33);
+        if (GOST_ProfileType.equals("1")) {
+            gost.setParams(0.1186, 38.5, -4, 36, 33);
         }
-        if (GOST_ProfileType.equals("2"))
-        {
-            gost.setParams(0.1186,38.5,-4,37,35);
+        if (GOST_ProfileType.equals("2")) {
+            gost.setParams(0.1186, 38.5, -4, 37, 35);
         }
-        if (GOST_ProfileType.equals("3"))
-        {
-            gost.setParams(0.1186,38.5,-4,37,35);
+        if (GOST_ProfileType.equals("3")) {
+            gost.setParams(0.1186, 38.5, -4, 37, 35);
         }
         Hv_x = gost.middle_x;  // middle_x of gost было 37
         while ((Hv_x - profile_xy[Hv_idx][0]) < 0) {
@@ -295,7 +379,7 @@ public class Mathematics {
 
         Hh_x = -((b * Hh_y + c) / a);
 
-        int gost_Hh_idx = GOST_Profile.length/2;  // 47 - middle of gost
+        int gost_Hh_idx = GOST_Profile.length / 2;  // 47 - middle of gost
         while ((Hh_y - GOST_Profile[gost_Hh_idx][1]) < 0) {
             gost_Hh_idx++;
         }
@@ -317,11 +401,11 @@ public class Mathematics {
         double H45 = 0, H45_x = 0, H45_y, gost_H45_x = 0, gost_H45_y = 0;
         int H45_idx = 0;
         boolean check;
-        PointDouble Line45_1 = new PointDouble(36.5,0);
-        PointDouble Line45_2 = new PointDouble(76.5,40);
-        PointDouble P1 = new PointDouble(0,0);
-        PointDouble P2 = new PointDouble(1,1);
-        PointDouble ProfileInterceptPoint = new PointDouble(0,0);
+        PointDouble Line45_1 = new PointDouble(36.5, 0);
+        PointDouble Line45_2 = new PointDouble(76.5, 40);
+        PointDouble P1 = new PointDouble(0, 0);
+        PointDouble P2 = new PointDouble(1, 1);
+        PointDouble ProfileInterceptPoint = new PointDouble(0, 0);
         PointDouble GostInterceptPoint = new PointDouble();
         Interception interception = new Interception();
 
@@ -334,8 +418,9 @@ public class Mathematics {
             P2.x = profile_xy[H45_idx + 1][0];
             P2.y = profile_xy[H45_idx + 1][1];
             H45_idx++;
-        } while ((!interception.isHasIntercept(P1,P2,Line45_1,Line45_2)&(H45_idx<profile_xy.length-2)));
-        ProfileInterceptPoint = interception.interceptPoint(P1,P2,Line45_1,Line45_2);
+        }
+        while ((!interception.isHasIntercept(P1, P2, Line45_1, Line45_2) & (H45_idx < profile_xy.length - 2)));
+        ProfileInterceptPoint = interception.interceptPoint(P1, P2, Line45_1, Line45_2);
 
         //Поиск точки пересечения с профилем по ГОСТ
         H45_idx = 0;
@@ -346,28 +431,28 @@ public class Mathematics {
             P2.x = GOST_Profile[H45_idx + 1][0];
             P2.y = GOST_Profile[H45_idx + 1][1];
             H45_idx++;
-        } while (!interception.isHasIntercept(P1,P2,Line45_1,Line45_2));
-        GostInterceptPoint = interception.interceptPoint(P1,P2,Line45_1,Line45_2);
+        } while (!interception.isHasIntercept(P1, P2, Line45_1, Line45_2));
+        GostInterceptPoint = interception.interceptPoint(P1, P2, Line45_1, Line45_2);
 
 
-        H45 = Math.sqrt((ProfileInterceptPoint.x - GostInterceptPoint.x)*(ProfileInterceptPoint.x - GostInterceptPoint.x) +
-                (ProfileInterceptPoint.y - GostInterceptPoint.y)*(ProfileInterceptPoint.y - GostInterceptPoint.y));
+        H45 = Math.sqrt((ProfileInterceptPoint.x - GostInterceptPoint.x) * (ProfileInterceptPoint.x - GostInterceptPoint.x) +
+                (ProfileInterceptPoint.y - GostInterceptPoint.y) * (ProfileInterceptPoint.y - GostInterceptPoint.y));
 
         //поиск площадей
         double S, S1, S2;
         S1 = 0;
         S2 = 0;
-        double center_point_x = 38.5,center_point_y = 0;
+        double center_point_x = 38.5, center_point_y = 0;
 
         for (int i = 0; i < profile_xy.length - 1; i++) {
-            S = 0.5*( (center_point_x - profile_xy[i+1][0])*(profile_xy[i][1] - profile_xy[i+1][1]) -
-                    (profile_xy[i][0] - profile_xy[i+1][0])*(center_point_y - profile_xy[i+1][1]) );
+            S = 0.5 * ((center_point_x - profile_xy[i + 1][0]) * (profile_xy[i][1] - profile_xy[i + 1][1]) -
+                    (profile_xy[i][0] - profile_xy[i + 1][0]) * (center_point_y - profile_xy[i + 1][1]));
             S2 += S;
         }
         //площадь госта. Убрать, забить константой
-        for (int i = 0; i < GOST_Profile.length-1; i++) {
-            S = 0.5*( (center_point_x - GOST_Profile[i+1][0])*(GOST_Profile[i][1] - GOST_Profile[i+1][1]) -
-                    (GOST_Profile[i][0] - GOST_Profile[i+1][0])*(center_point_y - GOST_Profile[i+1][1]) );
+        for (int i = 0; i < GOST_Profile.length - 1; i++) {
+            S = 0.5 * ((center_point_x - GOST_Profile[i + 1][0]) * (GOST_Profile[i][1] - GOST_Profile[i + 1][1]) -
+                    (GOST_Profile[i][0] - GOST_Profile[i + 1][0]) * (center_point_y - GOST_Profile[i + 1][1]));
             S1 += S;
         }
 
@@ -392,36 +477,36 @@ public class Mathematics {
         return profileSize;
     }
 
-    public class PointDouble{
+    public class PointDouble {
         double x;
         double y;
-        public PointDouble()
-        {
-            x=0;
-            y=0;
+
+        public PointDouble() {
+            x = 0;
+            y = 0;
         }
 
-        public PointDouble(double x_, double y_)
-        {
-            x=x_;
-            y=y_;
+        public PointDouble(double x_, double y_) {
+            x = x_;
+            y = y_;
         }
 
     }
 
-    public class Interception{
+    public class Interception {
         private PointDouble P1 = new PointDouble();
         private PointDouble P2 = new PointDouble();
         private PointDouble M1 = new PointDouble();
         private PointDouble M2 = new PointDouble();
 
-        public Interception(PointDouble P1,PointDouble P2, PointDouble M1, PointDouble M2){
+        public Interception(PointDouble P1, PointDouble P2, PointDouble M1, PointDouble M2) {
             this.P1 = P1;
             this.P2 = P2;
             this.M1 = M1;
             this.M2 = M2;
         }
-        public Interception(){
+
+        public Interception() {
             P1.x = 0;
             P1.y = 0;
             P2.x = 0;
@@ -432,7 +517,7 @@ public class Mathematics {
             M2.y = 0;
         }
 
-        private double dotVector(PointDouble A1,PointDouble A2,PointDouble B1,PointDouble B2){
+        private double dotVector(PointDouble A1, PointDouble A2, PointDouble B1, PointDouble B2) {
             PointDouble V1 = new PointDouble();
             PointDouble V2 = new PointDouble();
 
@@ -441,22 +526,22 @@ public class Mathematics {
             V2.x = B2.x - B1.x;
             V2.y = B2.y - B1.y;
 
-            return V1.x*V2.y-V2.x*V1.y;
+            return V1.x * V2.y - V2.x * V1.y;
         }
 
-        private boolean isHasIntercept(PointDouble A1,PointDouble A2, PointDouble B1, PointDouble B2){
-            if ((dotVector(A1,A2,A1,B2)*dotVector(A1,A2,A1,B1)<0)&&(dotVector(B1,B2,B1,A1)*dotVector(B1,B2,B1,A2)<0))
+        private boolean isHasIntercept(PointDouble A1, PointDouble A2, PointDouble B1, PointDouble B2) {
+            if ((dotVector(A1, A2, A1, B2) * dotVector(A1, A2, A1, B1) < 0) && (dotVector(B1, B2, B1, A1) * dotVector(B1, B2, B1, A2) < 0))
                 return true;
             else
                 return false;
         }
 
-        public PointDouble interceptPoint(PointDouble P1,PointDouble P2, PointDouble P3, PointDouble P4){
+        public PointDouble interceptPoint(PointDouble P1, PointDouble P2, PointDouble P3, PointDouble P4) {
             double Ua;
-            PointDouble resPoint = new PointDouble(0,0);
-            Ua = ( (P4.x-P3.x)*(P1.y-P3.y)-(P4.y-P3.y)*(P1.x-P3.x) )/( (P4.y-P3.y)*(P2.x-P1.x)-(P4.x-P3.x)*(P2.y-P1.y) );
-            resPoint.x = P1.x + Ua*(P2.x-P1.x);
-            resPoint.y = P1.y + Ua*(P2.y-P1.y);
+            PointDouble resPoint = new PointDouble(0, 0);
+            Ua = ((P4.x - P3.x) * (P1.y - P3.y) - (P4.y - P3.y) * (P1.x - P3.x)) / ((P4.y - P3.y) * (P2.x - P1.x) - (P4.x - P3.x) * (P2.y - P1.y));
+            resPoint.x = P1.x + Ua * (P2.x - P1.x);
+            resPoint.y = P1.y + Ua * (P2.y - P1.y);
             return resPoint;
         }
 

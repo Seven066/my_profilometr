@@ -289,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
                     Mathematics mathematics = new Mathematics();
                     mathematics.GOST_Profile = GostProfile;
                     mathematics.GOST_ProfileType = GostType;
-                    Profile profile = profileview.profiles.get(1);
+                    Profile profile = profileview.profiles.get(0);
                     for (int j = 1; j < profileview.profiles.size(); j++) {
                         profile = profileview.profiles.get(j);
                         mathematics.calcParams(profile.double_);
@@ -951,18 +951,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-/*
-    public class SettingsActivity extends PreferenceActivity
-            implements SharedPreferences.OnSharedPreferenceChangeListener {
-        public static final String KEY_GOST_TYPE = "gost_type";
-        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-                                              String key) {
-            if (key.equals(KEY_GOST_TYPE)) {
-                Log.d(LOG_TAG,"we in listpref listner");
-                Preference connectionPref = findPreference(key);
-                // Set summary to be the user-description for the selected value
-                connectionPref.setSummary(sharedPreferences.getString(key, ""));
-            }
-        }
-    }*/
 }
