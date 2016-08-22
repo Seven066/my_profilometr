@@ -852,6 +852,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.open_file:
                 OpenFileDialog openDialog = new OpenFileDialog(this);
+                openDialog.setFilter(".*\\.xml.*");
                 openDialog.setOpenDialogListener(openListener);
                 openDialog.show();
                 break;
