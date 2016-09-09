@@ -282,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
                             gostSettings.getString("railwayPlan","d"),gostSettings.getBoolean("railwaySide",true), gostSettings.getString("railwayCoordinate","d"), gostSettings.getString("location","0 lat, 0 lon"),
                             gostSettings.getString("comment","d"));
                     profileview.changeProfile(0,newGost);
+                    lvMain.setItemChecked(0,true);
                     adapter.notifyDataSetChanged();
                     profileview.invalidate();
 

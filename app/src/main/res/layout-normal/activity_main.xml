@@ -147,21 +147,6 @@
             android:id="@+id/progress_measuring"
             android:indeterminate="false" />
 
-        Button
-            android:id="@+id/demoMeasuring"
-            android:layout_width="80sp"
-            android:layout_height="50sp"
-            android:onClick="demoMeasuring"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/demoMeasuring" />
-
-        Button
-            android:id="@+id/button"
-            android:layout_width="80sp"
-            android:layout_height="50sp"
-            android:onClick="testXls"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Test xls" />
 
     </LinearLayout>
 
