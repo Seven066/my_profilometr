@@ -126,25 +126,26 @@
         android:layout_alignParentEnd="true">
 
         <Button
-            android:id="@+id/measuring"
-            android:layout_width="230sp"
-            android:layout_height="50sp"
-            android:onClick="measuring"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/measuring" />
-
-        <Button
+            android:id="@+id/demoMeasuring"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="demo"
             android:onClick="demoMeasuring"
-            android:id="@+id/demoMeasuring" />
+            android:text="Измерение профиля" />
+
+        <Button
+            android:id="@+id/measuring"
+            android:layout_width="wrap_content"
+            android:layout_height="50sp"
+            android:onClick="measuring"
+            android:text="скрыта"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:visibility="invisible" />
 
         <ProgressBar
+            android:id="@+id/progress_measuring"
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/progress_measuring"
             android:indeterminate="false" />
 
 
